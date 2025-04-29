@@ -2,7 +2,7 @@
 /*
  * @Author: hhan
  * @Date: 2025-04-29 16:21:54
- * @LastEditTime: 2025-04-29 16:21:59
+ * @LastEditTime: 2025-04-29 16:32:31
  * @Description: 
  */
 /**
@@ -51,7 +51,7 @@ if ($ref !== 'refs/heads/main') {
 // —— 调用更新脚本 —— //
 try {
     // 如果 update.php 返回错误码或异常，会在网页上显示
-    require __DIR__ . '/update.php';
+    require __DIR__ . '/deploy.php';
     // update.php 里 echo “✅ 更新完成”，这里我们也可以返回 200
     http_response_code(200);
     echo "Hook handled successfully";
