@@ -15,10 +15,10 @@ $url     = trim($_POST['url'] ?? '');
 $message = trim($_POST['message'] ?? '');
 $captcha = trim($_POST['captcha'] ?? '');
 
-if (!$name || !$email || !$message) {
+if (!$name ||  !$message) {
     die('缺少必填项。');
 }
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if ($email && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     die('无效的 Email。');
 }
 if ($captcha !== '7') {

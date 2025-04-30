@@ -117,36 +117,36 @@
 
               <!-- 留言功能 -->
               <!-- ===== 留言板 start ===== -->
-              <table style="width:100%;max-width:800px;margin: 20px auto 0;border-collapse:separate;border-spacing:0;">
+              <table
+                style="width:100%; max-width:800px; margin: 20px auto 0; border-collapse:separate; border-spacing:0;">
                 <tbody>
                   <tr bgcolor="#ffffd0">
                     <td style="padding:16px;">
-                      <h2 style="margin-top:0;">留言板</h2>
+                      <h2 style="margin-top:0; font-family: 'Arial', sans-serif;">留言板</h2>
                       <form action="comment.php" method="POST" class="guestbook-form">
-                        <table style="width:100%;border-spacing:8px 12px;">
+                        <table style="width:100%; border-spacing:10px 15px;">
                           <tbody>
                             <tr>
-                              <td style="width:20%;"><label for="gb-name">姓名：</label></td>
-                              <td><input type="text" id="gb-name" name="name" required></td>
+                              <td style="width:25%;"><label for="gb-name">姓名<span class="required">*</span>：</label></td>
+                              <td><input type="text" id="gb-name" name="name" required placeholder="请输入您的姓名"></td>
                             </tr>
                             <tr>
                               <td><label for="gb-email">Email：</label></td>
-                              <td><input type="email" id="gb-email" name="email" required></td>
+                              <td><input type="email" id="gb-email" name="email" required placeholder="请输入您的邮箱，选填"></td>
                             </tr>
                             <tr>
-                              <td><label for="gb-captcha">人类验证：</label></td>
-                              <td>
-                                <input type="text" id="gb-captcha" name="captcha" placeholder="6+1=?" required>
-                                <span class="hint">请输入数字 7</span>
-                              </td>
+                              <td><label for="gb-captcha"><b>为了验证您是人类</b>，请<br>填写六加一的结果(数字7)<span class="required">*</span>：</label></td>
+                              <td><input type="text" id="gb-captcha" name="captcha" placeholder="6+1=?" required></td>
                             </tr>
                             <tr>
                               <td><label for="gb-url">个人网址：</label></td>
-                              <td><input type="url" id="gb-url" name="url" placeholder="https://"></td>
+                              <td><input type="url" id="gb-url" name="url" placeholder="https://，选填"></td>
                             </tr>
                             <tr>
-                              <td valign="top"><label for="gb-message">留言：</label></td>
-                              <td><textarea id="gb-message" name="message" rows="5" required></textarea></td>
+                              <td valign="top"><label for="gb-message">留言<span class="required">*</span>：</label><br><small
+                                  style="color:#999;">（不欢迎在留言中粘贴程序代码）</small></td>
+                              <td><textarea id="gb-message" name="message" rows="6" required
+                                  placeholder="请输入您的留言..."></textarea></td>
                             </tr>
                             <tr>
                               <td></td>
@@ -162,6 +162,7 @@
                 </tbody>
               </table>
               <!-- ===== 留言板 end ===== -->
+
 
               <table
                 style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">

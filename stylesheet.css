@@ -141,6 +141,19 @@ span.highlight {
     border-radius: 10px;
 }
 
+/* 必填星号 */
+.required {
+  color: #e74c3c;
+  margin-left: 2px;
+}
+
+/* 顶部提示 */
+.form-note {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 12px;
+}
+
 /* 留言板表单 */
 .guestbook-form table {
   width: 100%;
@@ -181,4 +194,3 @@ span.highlight {
   font-weight: bold;
   font-size: 0.95em;
 }
-
