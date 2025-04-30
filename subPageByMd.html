@@ -1,0 +1,90 @@
+<!--
+ * @Author: hhan
+ * @Date: 2025-04-29 22:25:42
+ * @LastEditTime: 2025-04-30 12:37:23
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown 查看器</title>
+    <style>
+        body {
+            max-width: 800px;
+            margin: 2rem auto;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 0 1rem;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+
+        code {
+            background: #eee;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.3em;
+            margin-top: 1.5em;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="markdown-content">正在加载 Markdown…</div>
+
+    <!-- marked.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const file = params.get('file')+'.md';
+
+        if (file) {
+            const mdDir = file.includes('/') ? file.slice(0, file.lastIndexOf('/') + 1) : '';
+
+            fetch(file)
+                .then(res => {
+                    if (!res.ok) throw new Error('无法读取 Markdown 文件：' + res.status+ file);
+                    return res.text();
+                })
+                .then(mdText => {
+                    document.getElementById('markdown-content').innerHTML = marked.parse(mdText);
+                    // 修正所有 <img>
+                    document.querySelectorAll('#markdown-content img').forEach(img => {
+                        const src = img.getAttribute('src') || '';
+                        // 如果是相对路径，就加前缀
+                        if (!/^([a-z]+:)?\/\//i.test(src) && !src.startsWith('/')) {
+                            img.src = mdDir + src;
+                        }
+                    });
+                })
+                .catch(err => {
+                    document.getElementById('markdown-content').textContent = err.message;
+                });
+        }
+    </script>
+
+</body>
+
+</html>
