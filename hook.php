@@ -107,7 +107,7 @@ try {
     $root = __DIR__;
     $self = basename(__FILE__); // 通常是 hook.php
     foreach (scandir($root) as $item) {
-        if (in_array($item, ['.','..', $self], true)) {
+        if (in_array($item, ['.','..', $self,'comment.txt'], true)) {
             continue;
         }
         rrmdir("{$root}/{$item}");
