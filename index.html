@@ -69,7 +69,8 @@
                     </span> </a>
                   <p></p>
                   <p>
-                    &#12288;&#12288;其本身是西安科技大学大三课程设计，编程语言室python;代码已上传<a href="https://github.com/hhanworth/jpeg">Github</a>。目的是了解<br>
+                    &#12288;&#12288;其本身是西安科技大学大三课程设计，编程语言室python;代码已上传<a
+                      href="https://github.com/hhanworth/jpeg">Github</a>。目的是了解<br>
                   </p>
                   <p style=" text-align: right;">20250430于沈阳工业大学</p>
                 </td>
@@ -87,8 +88,10 @@
                     主要内容：<br>&#12288;&#12288;1.编辑<a
                       href="https://github.com/hhanworth/hanhanzeng/blob/main/index.html">index.html</a>后push到github自动部署到服务器；免去了服务商跑路，备份的烦恼。<br>
                     &#12288;&#12288;2.子页面可以纯前端直接渲染Markdown内容，文章编写更加方便。<br>
-                    &#12288;&#12288;它们由<a href="https://github.com/hhanworth/hanhanzeng/blob/main/hook.php">hook.php</a>和<a
-                      href="https://github.com/hhanworth/hanhanzeng/settings/hooks">webhook</a>功能以及<a href="https://github.com/markedjs/marked">marked</a>（一个很流行的前端 Markdown 解析器）实现。具体见项目<a
+                    &#12288;&#12288;它们由<a
+                      href="https://github.com/hhanworth/hanhanzeng/blob/main/hook.php">hook.php</a>和<a
+                      href="https://github.com/hhanworth/hanhanzeng/settings/hooks">webhook</a>功能以及<a
+                      href="https://github.com/markedjs/marked">marked</a>（一个很流行的前端 Markdown 解析器）实现。具体见项目<a
                       href="subPageByMd.html?file=readme">readme自述文件。</a><br>
                   </p>
                   <p style=" text-align: right;">20250429于沈阳工业大学</p>
@@ -112,6 +115,53 @@
                 </td>
               </tr>
 
+              <!-- 留言功能 -->
+              <!-- ===== 留言板 start ===== -->
+              <table style="width:100%;max-width:800px;margin: 20px auto 0;border-collapse:separate;border-spacing:0;">
+                <tbody>
+                  <tr bgcolor="#ffffd0">
+                    <td style="padding:16px;">
+                      <h2 style="margin-top:0;">留言板</h2>
+                      <form action="comment.php" method="POST" class="guestbook-form">
+                        <table style="width:100%;border-spacing:8px 12px;">
+                          <tbody>
+                            <tr>
+                              <td style="width:20%;"><label for="gb-name">姓名：</label></td>
+                              <td><input type="text" id="gb-name" name="name" required></td>
+                            </tr>
+                            <tr>
+                              <td><label for="gb-email">Email：</label></td>
+                              <td><input type="email" id="gb-email" name="email" required></td>
+                            </tr>
+                            <tr>
+                              <td><label for="gb-captcha">人类验证：</label></td>
+                              <td>
+                                <input type="text" id="gb-captcha" name="captcha" placeholder="6+1=?" required>
+                                <span class="hint">请输入数字 7</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><label for="gb-url">个人网址：</label></td>
+                              <td><input type="url" id="gb-url" name="url" placeholder="https://"></td>
+                            </tr>
+                            <tr>
+                              <td valign="top"><label for="gb-message">留言：</label></td>
+                              <td><textarea id="gb-message" name="message" rows="5" required></textarea></td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td style="text-align:right;">
+                                <button type="submit">提交留言</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </form>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- ===== 留言板 end ===== -->
 
               <table
                 style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
