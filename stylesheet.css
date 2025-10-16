@@ -141,3 +141,33 @@ span.highlight {
     border-radius: 10px;
 }
 
+/* 记录卡片样式（替代 <tr bgcolor="#ffffd0">） */
+.note-cell {
+  background: #fffbe6;           /* 柔和浅黄，承接原始主题 */
+  border: 1px solid #f2e8b2;     /* 边框与背景协调 */
+  border-radius: 12px;           /* 圆角更现代 */
+  padding: 14px 16px;            /* 舒适留白 */
+  vertical-align: top;           /* 内容顶部对齐 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.note-title {
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.note-cell .papertitle {
+  font-size: 16px;
+}
+
+.note-cell p {
+  margin: 6px 0;
+  line-height: 1.7;
+}
+
+.note-meta {
+  text-align: right;
+  color: #666;
+  font-size: 12px;
+  margin-top: 8px;
+}
