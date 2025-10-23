@@ -66,6 +66,7 @@
 a {
   color: #1772d0;
   text-decoration: none;
+  font-weight: 500;
 }
 
 a:focus,
@@ -74,19 +75,32 @@ a:hover {
   text-decoration: none;
 }
 
+html {
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+@media (max-width: 520px) {
+  html { font-size: 16px; }
+}
+
 body,
 td,
 th,
 tr,
 p,
 a {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
-  font-size: 14px;
+  /* 优先中文字体，其次英文字体，确保中英文都清晰 */
+  font-family: 'Lato', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', Arial, Helvetica, sans-serif;
+  font-size: 1rem;            /* 跟随 html 根字号 */
+  color: #111;                /* 提升文本对比度 */
+  line-height: 1.75;          /* 全局基础行高 */
+  text-rendering: optimizeLegibility;    /* 连字与几何微调（多数现代浏览器） */
+  word-break: break-word;                 /* 长词断行，避免溢出 */
 }
 
 strong {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
-  font-size: 14px;
+  font-family: 'Lato', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
 }
 
 h2 {
@@ -143,7 +157,7 @@ span.highlight {
 
 /* 记录卡片样式（替代 <tr bgcolor="#ffffd0">） */
 .note-cell {
-  background: #fffbe6;           /* 柔和浅黄，承接原始主题 */
+  background: #fffdf2;           /* 略提亮，提升对比 */
   border: 1px solid #f2e8b2;     /* 边框与背景协调 */
   border-radius: 12px;           /* 圆角更现代 */
   padding: 14px 16px;            /* 舒适留白 */
@@ -182,9 +196,9 @@ span.highlight {
 
 .note-title { display: inline-block; margin-bottom: 6px; }
 
-.note-cell .papertitle { font-size: 16px; }
+.note-cell .papertitle { font-size: 17px; }
 
-.note-cell p { margin: 6px 0; line-height: 1.7; }
+.note-cell p { margin: 8px 0; line-height: 1.85; }
 
 .note-meta { text-align: right; color: #666; font-size: 12px; margin-top: 8px; }
 

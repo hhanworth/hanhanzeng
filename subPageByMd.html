@@ -11,14 +11,21 @@
     <meta charset="UTF-8">
     <title>Markdown 查看器</title>
     <style>
+        html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+        @media (max-width: 520px) { html { font-size: 16px; } }
+
         body {
             max-width: 800px;
             margin: 2rem auto;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Lato', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', Arial, Helvetica, sans-serif;
+            line-height: 1.75;
             padding: 0 1rem;
-            background: #f9f9f9;
-            color: #333;
+            background: #fafafa;
+            color: #111;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            word-break: break-word;
         }
 
         pre {
