@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hhan.top | Topic</title>
+  <link rel="stylesheet" href="../stylesheet.css">
+  <style>
+    :root {
+      --bg: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.14), transparent 28%),
+            radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.18), transparent 30%),
+            #0f172a;
+      --panel: rgba(17, 24, 39, 0.78);
+      --panel-border: rgba(148, 163, 184, 0.3);
+      --panel-hover: rgba(94, 234, 212, 0.4);
+      --text-main: #e5e7eb;
+      --text-dim: #94a3b8;
+      --accent: #34d399;
+      --glow: 0 8px 30px rgba(52, 211, 153, 0.08);
+    }
+
+    body.topic-body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .topic-shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 56px 20px 72px;
+    }
+
+    .topic-hero {
+      margin-bottom: 36px;
+    }
+
+    .topic-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.16);
+      color: var(--text-main);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .topic-title {
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.2;
+      color: #f8fafc;
+      letter-spacing: -0.01em;
+    }
+
+    .topic-subtitle {
+      margin: 0;
+      max-width: 720px;
+      color: var(--text-dim);
+      font-size: 1rem;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .video-card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--glow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .video-card:hover {
+      border-color: var(--panel-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 38px rgba(52, 211, 153, 0.12);
+    }
+
+    .video-meta h2 {
+      margin: 6px 0 4px;
+      font-size: 18px;
+      color: #f8fafc;
+      letter-spacing: -0.005em;
+    }
+
+    .video-meta p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .video-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--panel-border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #0b1224;
+    }
+
+    .topic-footer {
+      margin-top: 28px;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body class="topic-body">
+  <div class="topic-shell">
+    <header class="topic-hero">
+      <span class="topic-kicker">hhan.top / topic</span>
+      <h1 class="topic-title">双视频循环播放</h1>
+      <p class="topic-subtitle">参考 reactive-diffusion-policy 的分段排版，将 data/video 下的两段视频集中展示，默认静音自动播放并循环，可根据需要手动开启声音。</p>
+    </header>
+
+    <section class="video-grid">
+      <article class="video-card">
+        <div class="video-meta">
+          <span class="pill">video1.mp4</span>
+          <h2>视频一</h2>
+          <p>资源路径：/data/video/video1.mp4</p>
+        </div>
+        <div class="video-wrapper">
+          <video src="/data/video/video1.mp4" autoplay loop muted playsinline controls></video>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-meta">
+          <span class="pill">video2.mp4</span>
+          <h2>视频二</h2>
+          <p>资源路径：/data/video/video2.mp4</p>
+        </div>
+        <div class="video-wrapper">
+          <video src="/data/video/video2.mp4" autoplay loop muted playsinline controls></video>
+        </div>
+      </article>
+    </section>
+
+    <footer class="topic-footer">
+      如需替换视频，可直接覆盖 <code>/data/video/video1.mp4</code> 与 <code>/data/video/video2.mp4</code>，路径保持不变即可。
+    </footer>
+  </div>
+</body>
+</html>
