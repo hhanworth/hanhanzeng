@@ -28,7 +28,7 @@
     }
 
     .topic-shell {
-      max-width: 1080px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 56px 20px 72px;
     }
@@ -68,9 +68,9 @@
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 22px;
-      margin-top: 22px;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      margin-top: 24px;
     }
 
     .video-card {
@@ -129,6 +129,12 @@
       aspect-ratio: 16 / 9;
       object-fit: cover;
       background: #0b1224;
+    }
+
+    @media (min-width: 960px) {
+      .video-wrapper video {
+        max-height: 70vh; /* 桌面端提升视觉占比 */
+      }
     }
 
     .topic-footer {
