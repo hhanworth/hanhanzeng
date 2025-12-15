@@ -66,6 +66,36 @@
       font-size: 1rem;
     }
 
+    .topic-sensor-card {
+      margin-top: 20px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--glow);
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+    }
+
+    .topic-sensor-image {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid var(--panel-border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .topic-sensor-caption {
+      margin: 0;
+      max-width: 720px;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
     .video-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -144,20 +174,29 @@
     }
   </style>
 </head>
+
 <body class="topic-body">
   <div class="topic-shell">
-    <!-- <header class="topic-hero">
-      <span class="topic-kicker">hhan.top / topic</span>
-      <h1 class="topic-title">H·H1 </h1>
-      <p class="topic-subtitle"> xxx </p>
-    </header> -->
+    <header class="topic-hero">
+      <span class="topic-kicker">ETS实验室</span>
+      <h1 class="topic-title">TacHalo</h1>
+      <p class="topic-subtitle"> TacHalo是一款基于单目视觉的视触觉传感器，可以仅凭少量训练数据实现接触表面形变、接触力和压力场分布估计。 </p>
+
+      <figure class="topic-sensor-card">
+        <picture>
+          <source srcset="449.png" type="image/png">
+          <img class="topic-sensor-image" src="449.pic" alt="TacHalo 视触觉传感器主体外观" loading="lazy">
+        </picture>
+        <figcaption class="topic-sensor-caption">TacHalo 传感器主体外观</figcaption>
+      </figure>
+    </header>
 
     <section class="video-grid">
       <article class="video-card">
         <div class="video-meta">
           <span class="pill">video1.mp4</span>
-          <h2>视频一</h2>
-          <p>按压测试</p>
+          <h2>按压测试</h2>
+          <p>当使用方形压头对TacHalo接触面施加外力时，传感器在z方向（法向）可实现0-6N量程范围内的接触力估计（均方根误差为0.12N）；在x和y方向（切向）可实现0-5N量程范围内的接触力估计（均方根误差分别为0.15N和0.12N）。</p>
         </div>
         <div class="video-wrapper">
           <video src="https://doc.hhan.top/video1.mp4" autoplay loop muted playsinline controls></video>
@@ -167,8 +206,8 @@
       <article class="video-card">
         <div class="video-meta">
           <span class="pill">video2.mp4</span>
-          <h2>视频二</h2>
-          <p>超量程测试</p>
+          <h2>超量程测试</h2>
+          <p>为评估TacHalo在超出标定量程时的响应稳定性，本实验对接触面施加逐步增大的外力，使真实载荷超过训练与标定范围。该视频主要用于定性观察超量程阶段输出的连续性、饱和趋势与潜在漂移，而非作为量程内精度指标的补充。</p>
         </div>
         <div class="video-wrapper">
           <video src="https://doc.hhan.top/video2.mp4" autoplay loop muted playsinline controls></video>
