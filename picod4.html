@@ -1,0 +1,1562 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vector Control</title>
+  <style>
+    :root {
+      --bg: #0a1016;
+      --panel: rgba(12, 21, 30, 0.88);
+      --panel-border: rgba(140, 175, 207, 0.16);
+      --text: #e8f0f5;
+      --muted: #87a0b6;
+      --accent: #64d4ff;
+      --accent-strong: #1fb7ff;
+      --warn: #ffbc61;
+      --ok: #55da95;
+      --error: #ff7f8d;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(31, 183, 255, 0.18), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(255, 188, 97, 0.18), transparent 28%),
+        linear-gradient(160deg, #04070b 0%, #0a1016 45%, #101922 100%);
+      color: var(--text);
+    }
+
+    .shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 32px 20px 40px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px 8px;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 0.92rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sidebar,
+    .main {
+      display: grid;
+      gap: 20px;
+      align-content: start;
+    }
+
+    .section-body {
+      padding: 0 20px 20px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      font: inherit;
+    }
+
+    input:not([type="range"]):not([type="color"]):not([type="checkbox"]),
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(143, 176, 210, 0.18);
+      border-radius: 16px;
+      background: rgba(3, 11, 18, 0.74);
+      color: var(--text);
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+
+    input:not([type="range"]):not([type="color"]):not([type="checkbox"]):focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(100, 212, 255, 0.56);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      min-height: 108px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #041018;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      transition: transform 120ms ease, filter 120ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    button.preset-btn.active,
+    button.secondary.preset-btn.active {
+      color: #041018;
+      background: linear-gradient(135deg, #a6ecff, var(--accent));
+    }
+
+    button.preset-btn {
+      position: relative;
+      min-width: 0;
+      padding-left: 36px;
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+
+    button.preset-btn::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--preset-color, var(--accent));
+      box-shadow: 0 0 16px var(--preset-color, var(--accent));
+      transform: translateY(-50%);
+    }
+
+    button.secondary {
+      color: var(--text);
+      background: rgba(71, 95, 118, 0.42);
+    }
+
+    button.warn {
+      color: #201305;
+      background: linear-gradient(135deg, #ffd28f, var(--warn));
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .status-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(7, 14, 22, 0.74);
+      border: 1px solid rgba(140, 175, 207, 0.12);
+    }
+
+    .status-card small {
+      display: block;
+      margin-bottom: 6px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .status-card strong {
+      display: block;
+      font-size: 1.05rem;
+      word-break: break-word;
+    }
+
+    .behavior-grid,
+    .preset-grid,
+    .weather-grid,
+    .notification-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .behavior-card {
+      min-width: 0;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(7, 14, 22, 0.84);
+      border: 1px solid rgba(140, 175, 207, 0.12);
+      display: grid;
+      gap: 10px;
+    }
+
+    .behavior-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .behavior-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .behavior-card button {
+      width: 100%;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      white-space: normal;
+      line-height: 1.25;
+    }
+
+    .log {
+      padding: 14px;
+      border-radius: 18px;
+      background: #040a10;
+      border: 1px solid rgba(140, 175, 207, 0.12);
+      min-height: 180px;
+      max-height: 340px;
+      overflow: auto;
+      font-family: "SFMono-Regular", "Consolas", monospace;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      background: rgba(6, 17, 28, 0.72);
+      border: 1px solid rgba(140, 175, 207, 0.14);
+      color: var(--muted);
+    }
+
+    .pill::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--warn);
+      box-shadow: 0 0 20px currentColor;
+    }
+
+    .pill.online::before { background: var(--ok); }
+    .pill.error::before { background: var(--error); }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+
+    .range-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .range-row input[type="range"] {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      accent-color: var(--accent);
+    }
+
+    .range-readout {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(7, 14, 22, 0.74);
+      border: 1px solid rgba(140, 175, 207, 0.12);
+      color: var(--text);
+    }
+
+    .toggle-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .color-slot {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(7, 14, 22, 0.74);
+      border: 1px solid rgba(140, 175, 207, 0.12);
+    }
+
+    .color-slot input[type="color"] {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid rgba(140, 175, 207, 0.18);
+      border-radius: 12px;
+      background: rgba(3, 11, 18, 0.74);
+      padding: 4px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <span class="pill" id="connection-pill">Waiting for device</span>
+      <h1>Vector<br>Control Surface</h1>
+      <p>
+        Single-file browser client for <code>pico-d4-vector</code>. It talks directly to the device API,
+        uses browser-native microphone, speech recognition, and speech synthesis, and falls back to manual text
+        control when speech APIs are missing.<br>Designed jointly by HAN and ChatGPT 5.5.
+      </p>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="panel-header"><h2>Connection</h2></div>
+          <div class="section-body stack">
+            <label>
+              Device URL
+              <input id="device-url" spellcheck="false" value="http://vector-C92DF4.local" placeholder="http://vector-C92DF4.local">
+            </label>
+            <div class="button-row">
+              <button id="save-url">Save</button>
+              <button class="secondary" id="refresh-device">Refresh</button>
+            </div>
+            <p class="note">
+              Recommended usage:  Set the Device URL: http://ip-address or mDNS name (e.g. http://vector-xxxx.local) and click Save.
+              Browser microphone and speech recognition availability still depends on the browser.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2>Conversation</h2></div>
+          <div class="section-body stack">
+            <div class="button-row">
+              <button id="start-listen">Start Listening</button>
+              <button class="secondary" id="cancel-conversation">Cancel</button>
+            </div>
+            <div class="button-row">
+              <button id="toggle-speech">Toggle Browser Speech</button>
+              <button class="secondary" id="speak-last">Speak Last Reply</button>
+            </div>
+            <label>
+              Transcript / Manual Input
+              <textarea id="manual-transcript" placeholder="Type text here when browser speech recognition is unavailable."></textarea>
+            </label>
+            <label>
+              Optional behavior id
+              <input id="manual-behavior" spellcheck="false" placeholder="KnowledgeGraphQuestion">
+            </label>
+            <label>
+              Optional browser reply text
+              <input id="manual-reply" spellcheck="false" placeholder="I heard you.">
+            </label>
+            <div class="button-row">
+              <button id="commit-conversation">Commit</button>
+              <button class="secondary" id="commit-failure">Commit Failure</button>
+            </div>
+            <p class="note" id="speech-capabilities">Detecting browser speech capabilities…</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2>Device State</h2></div>
+          <div class="section-body">
+            <div class="status-grid" id="state-grid"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2>System</h2></div>
+          <div class="section-body stack">
+            <div class="stack">
+              <p class="note">CPU mode</p>
+              <div class="button-row">
+                <button class="secondary cpu-mode-btn" data-mode="balanced">Balanced</button>
+                <button class="secondary cpu-mode-btn" data-mode="performance">Performance</button>
+              </div>
+              <p class="note" id="cpu-mode-note">CPU mode settings load with device state.</p>
+            </div>
+            <div class="stack">
+              <label class="toggle-row">
+                <span>Idle breathing</span>
+                <input id="led-enabled" type="checkbox">
+              </label>
+              <label>
+                Breath colors
+                <select id="led-color-count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </label>
+              <div class="color-grid">
+                <label class="color-slot">
+                  <span>Color 1</span>
+                  <input id="led-color-0" type="color" value="#00baff">
+                </label>
+                <label class="color-slot">
+                  <span>Color 2</span>
+                  <input id="led-color-1" type="color" value="#00ffdc">
+                </label>
+                <label class="color-slot">
+                  <span>Color 3</span>
+                  <input id="led-color-2" type="color" value="#ffbc61">
+                </label>
+                <label class="color-slot">
+                  <span>Color 4</span>
+                  <input id="led-color-3" type="color" value="#ffffff">
+                </label>
+              </div>
+              <div class="range-row">
+                <label for="led-breath-brightness">Breath brightness</label>
+                <input id="led-breath-brightness" type="range" min="0" max="255" step="1">
+                <div class="range-readout">
+                  <span>Wave amplitude</span>
+                  <span id="led-breath-brightness-value">255</span>
+                </div>
+              </div>
+              <div class="range-row">
+                <label for="led-global-min">Global min brightness</label>
+                <input id="led-global-min" type="range" min="0" max="255" step="1">
+                <div class="range-readout">
+                  <span>Lower clamp</span>
+                  <span id="led-global-min-value">8</span>
+                </div>
+              </div>
+              <div class="range-row">
+                <label for="led-global-max">Global max brightness</label>
+                <input id="led-global-max" type="range" min="0" max="255" step="1">
+                <div class="range-readout">
+                  <span>Upper clamp</span>
+                  <span id="led-global-max-value">128</span>
+                </div>
+              </div>
+              <div class="range-row">
+                <label for="led-breath-period">Breath period (ms)</label>
+                <input id="led-breath-period" type="range" min="400" max="20000" step="100">
+                <div class="range-readout">
+                  <span>One full breathe</span>
+                  <span id="led-breath-period-value">2800</span>
+                </div>
+              </div>
+              <div class="button-row">
+                <button id="apply-led-settings">Apply LED</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <section class="panel">
+          <div class="panel-header"><h2>Behaviors</h2></div>
+          <div class="section-body">
+            <div class="behavior-grid" id="behavior-grid"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2>Events</h2></div>
+          <div class="section-body stack">
+            <div>
+              <p class="note">Eye color</p>
+              <div class="stack">
+                <div class="preset-grid" id="eye-preset-grid"></div>
+                <div class="range-row">
+                  <label for="eye-hue">Hue</label>
+                  <input id="eye-hue" type="range" min="0" max="1" step="0.01">
+                  <div class="range-readout">
+                    <span id="eye-preset-label">official</span>
+                    <span id="eye-hue-value">0.45</span>
+                  </div>
+                </div>
+                <div class="range-row">
+                  <label for="eye-saturation">Saturation</label>
+                  <input id="eye-saturation" type="range" min="0" max="1" step="0.01">
+                  <div class="range-readout">
+                    <span>Global face saturation</span>
+                    <span id="eye-saturation-value">1.00</span>
+                  </div>
+                </div>
+                <div class="button-row">
+                  <button id="apply-eye-color">Apply Color</button>
+                  <button class="secondary" id="reset-eye-color">Official Default</button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="note">Timer</p>
+              <div class="stack">
+                <div class="button-row">
+                  <label>
+                    Minutes
+                    <input id="timer-minutes" type="number" min="0" max="1440" step="1" value="5">
+                  </label>
+                  <label>
+                    Seconds
+                    <input id="timer-seconds" type="number" min="0" max="59" step="1" value="0">
+                  </label>
+                </div>
+                <div class="button-row">
+                  <button id="set-timer">Set Timer</button>
+                  <button class="secondary" id="check-timer">Check</button>
+                  <button class="secondary" id="cancel-timer">Cancel</button>
+                </div>
+                <p class="note" id="timer-status">Timer state loads with device state.</p>
+              </div>
+            </div>
+            <div>
+              <p class="note">Weather conditions</p>
+              <div class="stack">
+                <label>
+                  AMap API key
+                  <input id="amap-key" type="text" autocomplete="off" placeholder="AMap Web service key">
+                </label>
+                <label>
+                  City adcode
+                  <input id="amap-city" type="text" inputmode="numeric" placeholder="110101">
+                </label>
+                <div class="button-row">
+                  <button id="save-weather-settings">Save Weather</button>
+                  <button id="query-amap-weather">Query Weather</button>
+                </div>
+                <p class="note" id="weather-status">Weather query runs on the device. Manual buttons use the official Vector weather animation groups.</p>
+              </div>
+              <div class="weather-grid" id="weather-grid"></div>
+            </div>
+            <div>
+              <p class="note">Notification controls</p>
+              <div class="notification-grid">
+                <button data-pulse="false" class="warn notification-btn">Enter Notification</button>
+                <button data-pulse="true" class="secondary notification-btn">Pulse Notification</button>
+              </div>
+            </div>
+            <div>
+              <p class="note">Holiday controls</p>
+              <div class="notification-grid">
+                <button class="secondary holiday-btn" data-behavior="SeasonalHappyNewYear">New Year</button>
+                <button class="secondary holiday-btn" data-behavior="anim_holiday_hyn_confetti_01">Confetti</button>
+                <button class="secondary holiday-btn" data-behavior="SeasonalHappyHolidays">Holidays</button>
+              </div>
+            </div>
+            <div>
+              <p class="note">Debug IMU injection</p>
+              <div class="notification-grid">
+                <button class="secondary imu-btn" data-direction="up">IMU Up</button>
+                <button class="secondary imu-btn" data-direction="down">IMU Down</button>
+                <button class="secondary imu-btn" data-direction="left">IMU Left</button>
+                <button class="secondary imu-btn" data-direction="right">IMU Right</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2>Log</h2></div>
+          <div class="section-body">
+            <div class="log" id="log"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const storeKey = "vectorDeviceUrl";
+    const stateGrid = document.getElementById("state-grid");
+    const behaviorGrid = document.getElementById("behavior-grid");
+    const eyePresetGrid = document.getElementById("eye-preset-grid");
+    const weatherGrid = document.getElementById("weather-grid");
+    const logEl = document.getElementById("log");
+    const pillEl = document.getElementById("connection-pill");
+    const speechCapabilitiesEl = document.getElementById("speech-capabilities");
+    const deviceUrlInput = document.getElementById("device-url");
+    const manualTranscript = document.getElementById("manual-transcript");
+    const manualBehavior = document.getElementById("manual-behavior");
+    const manualReply = document.getElementById("manual-reply");
+    const eyeHueInput = document.getElementById("eye-hue");
+    const eyeSaturationInput = document.getElementById("eye-saturation");
+    const eyePresetLabel = document.getElementById("eye-preset-label");
+    const eyeHueValue = document.getElementById("eye-hue-value");
+    const eyeSaturationValue = document.getElementById("eye-saturation-value");
+    const ledEnabledInput = document.getElementById("led-enabled");
+    const ledColorCountInput = document.getElementById("led-color-count");
+    const ledColorInputs = [
+      document.getElementById("led-color-0"),
+      document.getElementById("led-color-1"),
+      document.getElementById("led-color-2"),
+      document.getElementById("led-color-3"),
+    ];
+    const ledBreathBrightnessInput = document.getElementById("led-breath-brightness");
+    const ledGlobalMinInput = document.getElementById("led-global-min");
+    const ledGlobalMaxInput = document.getElementById("led-global-max");
+    const ledBreathPeriodInput = document.getElementById("led-breath-period");
+    const ledBreathBrightnessValue = document.getElementById("led-breath-brightness-value");
+    const ledGlobalMinValue = document.getElementById("led-global-min-value");
+    const ledGlobalMaxValue = document.getElementById("led-global-max-value");
+    const ledBreathPeriodValue = document.getElementById("led-breath-period-value");
+    const cpuModeNote = document.getElementById("cpu-mode-note");
+    const timerMinutesInput = document.getElementById("timer-minutes");
+    const timerSecondsInput = document.getElementById("timer-seconds");
+    const timerStatusEl = document.getElementById("timer-status");
+    const amapKeyInput = document.getElementById("amap-key");
+    const amapCityInput = document.getElementById("amap-city");
+    const weatherStatusEl = document.getElementById("weather-status");
+
+    const eyeColorPresets = [
+      { id: "official", label: "Official", hue: 0.45, saturation: 1.00 },
+      { id: "teal", label: "Teal", hue: 0.42, saturation: 1.00 },
+      { id: "orange", label: "Orange", hue: 0.05, saturation: 0.95 },
+      { id: "yellow", label: "Yellow", hue: 0.11, saturation: 1.00 },
+      { id: "green", label: "Green", hue: 0.21, saturation: 1.00 },
+      { id: "blue", label: "Blue", hue: 0.57, saturation: 1.00 },
+      { id: "purple", label: "Purple", hue: 0.83, saturation: 0.76 },
+    ];
+
+    function normalizeDeviceUrl(value) {
+      return (value || "").trim().replace(/\/+$/, "");
+    }
+
+    function readQueryDeviceUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const explicitDevice = params.get("device");
+      if (explicitDevice) {
+        return explicitDevice;
+      }
+      const host = params.get("host");
+      if (host) {
+        return host.startsWith("http://") || host.startsWith("https://") ? host : `http://${host}`;
+      }
+      if (window.location.hash.startsWith("#device=")) {
+        return decodeURIComponent(window.location.hash.slice("#device=".length));
+      }
+      return "";
+    }
+
+    function isLoopbackHost(hostname = window.location.hostname) {
+      return ["localhost", "127.0.0.1", "0.0.0.0", "[::1]"].includes(hostname);
+    }
+
+    function canProbeSameOriginDevice() {
+      if (window.location.protocol === "file:") {
+        return false;
+      }
+      return !isLoopbackHost();
+    }
+
+    function resolveInitialDeviceUrl() {
+      const queryUrl = normalizeDeviceUrl(readQueryDeviceUrl());
+      if (queryUrl) {
+        return queryUrl;
+      }
+      const savedUrl = normalizeDeviceUrl(localStorage.getItem(storeKey));
+      if (savedUrl) {
+        return savedUrl;
+      }
+      return "";
+    }
+
+    const state = {
+      deviceUrl: resolveInitialDeviceUrl(),
+      speechEnabled: true,
+      recognition: null,
+      lastReply: "",
+      deviceInfo: null,
+      deviceInfoFetchedAt: 0,
+      refreshTimer: null,
+      pollTimer: null,
+      behaviorVersion: "",
+      loadedBehaviorVersion: "",
+      refreshInFlight: false,
+      lastRefreshError: "",
+      eyeColorPreset: "official",
+      eyeHue: 0.45,
+      eyeSaturation: 1.00,
+      sameOriginProbeAttempted: false,
+      cpuMode: "balanced",
+      cpuFreqMhz: 160,
+      ledSettings: {
+        enabled: true,
+        color_count: 2,
+        breath_brightness: 255,
+        global_min_brightness: 8,
+        global_max_brightness: 128,
+        breath_period_ms: 2800,
+        colors: ["#00BAFF", "#00FFDC", "#FFBC61", "#FFFFFF"],
+      },
+      timer: {
+        active: false,
+        duration_seconds: 0,
+        remaining_seconds: 0,
+      },
+      weatherSettings: {
+        amap_key: "",
+        city_adcode: "110101",
+      },
+      weatherSettingsLoaded: false,
+    };
+
+    const pollIntervalMs = 10000;
+    const actionRefreshDelayMs = 400;
+    const deviceRefreshIntervalMs = 30000;
+
+    deviceUrlInput.value = state.deviceUrl;
+    function log(message) {
+      const stamp = new Date().toLocaleTimeString();
+      logEl.textContent = `[${stamp}] ${message}\n` + logEl.textContent;
+    }
+
+    function setConnection(status, text) {
+      pillEl.textContent = text;
+      pillEl.className = `pill ${status}`;
+    }
+
+    function clampUnit(value) {
+      return Math.max(0, Math.min(1, Number(value) || 0));
+    }
+
+    function formatUnit(value) {
+      return clampUnit(value).toFixed(2);
+    }
+
+    function toHexByte(value) {
+      return Math.round(Math.max(0, Math.min(255, value))).toString(16).padStart(2, "0").toUpperCase();
+    }
+
+    function hsvToRgbHex(hue, saturation, value = 255) {
+      const h = clampUnit(hue) * 6;
+      const s = clampUnit(saturation);
+      const v = Math.max(0, Math.min(255, Number(value) || 0)) / 255;
+      const sector = Math.floor(h) % 6;
+      const fraction = h - Math.floor(h);
+      const p = v * (1 - s);
+      const q = v * (1 - fraction * s);
+      const t = v * (1 - (1 - fraction) * s);
+      let r = 0;
+      let g = 0;
+      let b = 0;
+      if (sector === 0) {
+        r = v; g = t; b = p;
+      } else if (sector === 1) {
+        r = q; g = v; b = p;
+      } else if (sector === 2) {
+        r = p; g = v; b = t;
+      } else if (sector === 3) {
+        r = p; g = q; b = v;
+      } else if (sector === 4) {
+        r = t; g = p; b = v;
+      } else {
+        r = v; g = p; b = q;
+      }
+      return `#${toHexByte(r * 255)}${toHexByte(g * 255)}${toHexByte(b * 255)}`;
+    }
+
+    function presetCssColor(preset) {
+      return hsvToRgbHex(preset.hue, preset.saturation);
+    }
+
+    function eyePresetTitle(preset) {
+      const match = eyeColorPresets.find((item) => item.id === preset);
+      return match ? match.label : (preset || "custom");
+    }
+
+    function formatEyeColorText(eyeColor) {
+      const preset = eyeColor?.preset || state.eyeColorPreset || "official";
+      const hue = Number.isFinite(eyeColor?.hue) ? eyeColor.hue : state.eyeHue;
+      const saturation = Number.isFinite(eyeColor?.saturation) ? eyeColor.saturation : state.eyeSaturation;
+      return `${eyePresetTitle(preset)} / H ${formatUnit(hue)} / S ${formatUnit(saturation)}`;
+    }
+
+    function refreshEyeColorReadout() {
+      eyePresetLabel.textContent = eyePresetTitle(state.eyeColorPreset);
+      eyeHueValue.textContent = formatUnit(eyeHueInput.value);
+      eyeSaturationValue.textContent = formatUnit(eyeSaturationInput.value);
+      for (const button of eyePresetGrid.querySelectorAll(".preset-btn")) {
+        button.classList.toggle("active", button.dataset.preset === state.eyeColorPreset);
+      }
+    }
+
+    function syncEyeColorControls(eyeColor = {}) {
+      state.eyeColorPreset = eyeColor.preset || state.eyeColorPreset || "official";
+      state.eyeHue = clampUnit(Number.isFinite(eyeColor.hue) ? eyeColor.hue : state.eyeHue);
+      state.eyeSaturation = clampUnit(Number.isFinite(eyeColor.saturation) ? eyeColor.saturation : state.eyeSaturation);
+      eyeHueInput.value = formatUnit(state.eyeHue);
+      eyeSaturationInput.value = formatUnit(state.eyeSaturation);
+      refreshEyeColorReadout();
+    }
+
+    function refreshLedSettingsReadout() {
+      ledBreathBrightnessValue.textContent = String(Number(ledBreathBrightnessInput.value || 0));
+      ledGlobalMinValue.textContent = String(Number(ledGlobalMinInput.value || 0));
+      ledGlobalMaxValue.textContent = String(Number(ledGlobalMaxInput.value || 0));
+      ledBreathPeriodValue.textContent = String(Number(ledBreathPeriodInput.value || 0));
+
+      const activeCount = Number(ledColorCountInput.value || 1);
+      for (const [index, input] of ledColorInputs.entries()) {
+        input.disabled = index >= activeCount;
+        input.parentElement.style.opacity = index >= activeCount ? "0.45" : "1";
+      }
+
+      for (const button of document.querySelectorAll(".cpu-mode-btn")) {
+        button.classList.toggle("active", button.dataset.mode === state.cpuMode);
+      }
+      cpuModeNote.textContent = `CPU ${state.cpuMode} / ${state.cpuFreqMhz || "-"} MHz`;
+    }
+
+    function formatDuration(totalSeconds) {
+      const seconds = Math.max(0, Number(totalSeconds) || 0);
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainder = seconds % 60;
+      if (hours > 0) {
+        return `${hours}:${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
+      }
+      return `${minutes}:${String(remainder).padStart(2, "0")}`;
+    }
+
+    function syncTimerStatus(timer = {}) {
+      state.timer = { ...state.timer, ...timer };
+      timerStatusEl.textContent = state.timer.active
+        ? `Active / ${formatDuration(state.timer.remaining_seconds)} remaining`
+        : "Inactive";
+    }
+
+    function syncWeatherSettingsControls(weather = {}) {
+      state.weatherSettings = {
+        ...state.weatherSettings,
+        ...weather,
+      };
+      amapKeyInput.value = state.weatherSettings.amap_key || "";
+      amapCityInput.value = state.weatherSettings.city_adcode || "110101";
+      state.weatherSettingsLoaded = true;
+    }
+
+    function syncLedSettingsControls(ledSettings = {}) {
+      state.ledSettings = {
+        ...state.ledSettings,
+        ...ledSettings,
+        colors: Array.isArray(ledSettings.colors) && ledSettings.colors.length
+          ? ledSettings.colors.slice(0, 4)
+          : state.ledSettings.colors,
+      };
+      while (state.ledSettings.colors.length < 4) {
+        state.ledSettings.colors.push("#FFFFFF");
+      }
+      ledEnabledInput.checked = Boolean(state.ledSettings.enabled);
+      ledColorCountInput.value = String(state.ledSettings.color_count || 1);
+      ledBreathBrightnessInput.value = String(state.ledSettings.breath_brightness ?? 255);
+      ledGlobalMinInput.value = String(state.ledSettings.global_min_brightness ?? 8);
+      ledGlobalMaxInput.value = String(state.ledSettings.global_max_brightness ?? 128);
+      ledBreathPeriodInput.value = String(state.ledSettings.breath_period_ms ?? 2800);
+      ledColorInputs.forEach((input, index) => {
+        input.value = state.ledSettings.colors[index] || "#FFFFFF";
+      });
+      refreshLedSettingsReadout();
+    }
+
+    async function maybeUseSameOriginDeviceUrl() {
+      if (baseUrl() || state.sameOriginProbeAttempted || !canProbeSameOriginDevice()) {
+        return Boolean(baseUrl());
+      }
+
+      state.sameOriginProbeAttempted = true;
+      try {
+        const response = await fetch(`${window.location.origin}/api/v1/device`, {
+          headers: { Accept: "application/json" },
+          cache: "no-store",
+        });
+        if (!response.ok) {
+          return false;
+        }
+
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.toLowerCase().includes("application/json")) {
+          return false;
+        }
+
+        const deviceInfo = await response.json();
+        if (!deviceInfo || typeof deviceInfo !== "object" || (!deviceInfo.hostname && !deviceInfo.device_id)) {
+          return false;
+        }
+
+        state.deviceUrl = normalizeDeviceUrl(window.location.origin);
+        deviceUrlInput.value = state.deviceUrl;
+        log(`using same-origin device api: ${state.deviceUrl}`);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function baseUrl() {
+      return normalizeDeviceUrl(state.deviceUrl);
+    }
+
+    async function requestJson(path, options = {}) {
+      const url = baseUrl();
+      if (!url) {
+        throw new Error("device url is not set");
+      }
+
+      const headers = { Accept: "application/json", ...(options.headers || {}) };
+      if (options.body !== undefined && !headers["Content-Type"]) {
+        headers["Content-Type"] = "text/plain";
+      }
+
+      const response = await fetch(url + path, {
+        ...options,
+        headers,
+        cache: "no-store"
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`${response.status} ${response.statusText}: ${text}`);
+      }
+      return response.json();
+    }
+
+    async function loadWeatherSettings(force = false) {
+      if (!force && state.weatherSettingsLoaded) {
+        return;
+      }
+      const weather = await requestJson("/api/v1/settings/weather");
+      syncWeatherSettingsControls(weather.weather || weather || {});
+    }
+
+    async function saveWeatherSettings() {
+      const payload = {
+        amap_key: amapKeyInput.value.trim(),
+        city_adcode: amapCityInput.value.trim() || "110101",
+      };
+      try {
+        const response = await requestJson("/api/v1/settings/weather", {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        syncWeatherSettingsControls(response.weather || payload);
+        weatherStatusEl.textContent = "Weather settings saved to device.";
+        log(`weather settings: ${response.status || "ok"}`);
+      } catch (error) {
+        weatherStatusEl.textContent = `weather settings failed: ${error.message}`;
+        log(`weather settings failed: ${error.message}`);
+      }
+    }
+
+    function scheduleRefresh(delayMs = actionRefreshDelayMs) {
+      if (state.refreshTimer) {
+        clearTimeout(state.refreshTimer);
+      }
+      state.refreshTimer = setTimeout(() => {
+        state.refreshTimer = null;
+        refreshDevice(false);
+      }, delayMs);
+    }
+
+    function renderStateCards(deviceInfo, runtimeState) {
+      const cards = [
+        ["Mode", runtimeState.mode || "-"],
+        ["Label", runtimeState.transient_label || "-"],
+        ["Eye Color", formatEyeColorText(runtimeState.eye_color)],
+        ["Queue", String(runtimeState.queue_depth ?? "-")],
+        ["Timer", runtimeState.timer?.active ? formatDuration(runtimeState.timer.remaining_seconds) : "Inactive"],
+        ["Wi-Fi", deviceInfo.wifi_state || "-"],
+        ["CPU", `${deviceInfo.cpu_mode || "-"} / ${deviceInfo.cpu_freq_mhz || "-"} MHz`],
+        ["Host", deviceInfo.hostname || "-"],
+        ["IP", deviceInfo.ip || "-"],
+        ["Behavior", runtimeState.last_behavior_id || "-"],
+        ["Transcript", runtimeState.last_transcript || "-"],
+        ["IMU", runtimeState.imu_state || "-"],
+        ["Pack", deviceInfo.asset_pack_version || "-"],
+      ];
+      stateGrid.innerHTML = cards.map(([label, value]) => `
+        <div class="status-card">
+          <small>${label}</small>
+          <strong>${value}</strong>
+        </div>
+      `).join("");
+    }
+
+    async function refreshBehaviors(force = false) {
+      if (!baseUrl()) {
+        behaviorGrid.innerHTML = "";
+        state.loadedBehaviorVersion = "";
+        return;
+      }
+
+      if (!force &&
+          state.loadedBehaviorVersion === state.behaviorVersion &&
+          behaviorGrid.childElementCount > 0) {
+        return;
+      }
+
+      const behaviorInfo = await requestJson("/api/v1/behaviors");
+      renderBehaviors(behaviorInfo.behaviors || []);
+      state.loadedBehaviorVersion = state.behaviorVersion;
+    }
+
+    async function loadDeviceState(forceDeviceRefresh = false) {
+      const runtimeState = await requestJson("/api/v1/state");
+      const now = Date.now();
+      const needsDeviceRefresh =
+        forceDeviceRefresh ||
+        !state.deviceInfo ||
+        (now - state.deviceInfoFetchedAt) >= deviceRefreshIntervalMs;
+
+      if (needsDeviceRefresh) {
+        state.deviceInfo = await requestJson("/api/v1/device");
+        state.deviceInfoFetchedAt = now;
+      }
+
+      return { deviceInfo: state.deviceInfo || {}, runtimeState };
+    }
+
+    async function refreshDevice(forceDeviceRefresh = false) {
+      if (!baseUrl()) {
+        const adoptedSameOriginDevice = await maybeUseSameOriginDeviceUrl();
+        if (adoptedSameOriginDevice) {
+          return refreshDevice(true);
+        }
+        setConnection("", "Set device URL");
+        stateGrid.innerHTML = "";
+        behaviorGrid.innerHTML = "";
+        state.behaviorVersion = "";
+        state.loadedBehaviorVersion = "";
+        state.deviceInfo = null;
+        state.deviceInfoFetchedAt = 0;
+        state.weatherSettingsLoaded = false;
+        return;
+      }
+
+      if (state.refreshInFlight) {
+        return;
+      }
+
+      state.refreshInFlight = true;
+      try {
+        const { deviceInfo, runtimeState } = await loadDeviceState(forceDeviceRefresh);
+        renderStateCards(deviceInfo, runtimeState);
+        syncEyeColorControls(runtimeState.eye_color || {});
+        syncLedSettingsControls(runtimeState.led_settings || {});
+        syncTimerStatus(runtimeState.timer || {});
+        await loadWeatherSettings(forceDeviceRefresh);
+        state.cpuMode = deviceInfo.cpu_mode || state.cpuMode;
+        state.cpuFreqMhz = Number(deviceInfo.cpu_freq_mhz || state.cpuFreqMhz || 0);
+        refreshLedSettingsReadout();
+        setConnection("online", `Connected to ${deviceInfo.hostname || deviceInfo.device_id || "device"}`);
+        const nextBehaviorVersion = runtimeState.supported_behaviors_version || "";
+        const shouldReloadBehaviors =
+          nextBehaviorVersion !== state.behaviorVersion ||
+          nextBehaviorVersion !== state.loadedBehaviorVersion ||
+          behaviorGrid.childElementCount === 0;
+        state.behaviorVersion = nextBehaviorVersion;
+        if (shouldReloadBehaviors) {
+          try {
+            await refreshBehaviors(true);
+          } catch (error) {
+            log(`behaviors refresh failed: ${error.message}`);
+          }
+        }
+        state.lastRefreshError = "";
+      } catch (error) {
+        setConnection("error", "Device unreachable");
+        state.deviceInfo = null;
+        state.deviceInfoFetchedAt = 0;
+        if (state.lastRefreshError !== error.message) {
+          log(`refresh failed: ${error.message}`);
+          state.lastRefreshError = error.message;
+        }
+      } finally {
+        state.refreshInFlight = false;
+      }
+    }
+
+    function renderBehaviors(behaviors) {
+      behaviorGrid.innerHTML = "";
+      for (const behavior of behaviors) {
+        const card = document.createElement("article");
+        card.className = "behavior-card";
+        card.innerHTML = `
+          <h3>${behavior.id}</h3>
+          <p>${behavior.description || ""}</p>
+        `;
+        const button = document.createElement("button");
+        button.textContent = behavior.label || "Play";
+        button.addEventListener("click", () => playBehavior(behavior.id, true));
+        card.appendChild(button);
+        behaviorGrid.appendChild(card);
+      }
+    }
+
+    function initEyeColorControls() {
+      eyePresetGrid.innerHTML = "";
+      for (const preset of eyeColorPresets) {
+        const button = document.createElement("button");
+        button.className = "secondary preset-btn";
+        button.dataset.preset = preset.id;
+        button.style.setProperty("--preset-color", presetCssColor(preset));
+        button.textContent = preset.label;
+        button.addEventListener("click", () => applyEyeColor({ preset: preset.id }, `eye color ${preset.id}`));
+        eyePresetGrid.appendChild(button);
+      }
+      eyeHueInput.addEventListener("input", () => {
+        state.eyeColorPreset = "custom";
+        refreshEyeColorReadout();
+      });
+      eyeSaturationInput.addEventListener("input", () => {
+        state.eyeColorPreset = "custom";
+        refreshEyeColorReadout();
+      });
+      syncEyeColorControls();
+    }
+
+    async function playBehavior(behaviorId, interrupt = true) {
+      try {
+        const payload = { behavior_id: behaviorId, interrupt };
+        const response = await requestJson("/api/v1/behavior/play", {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        log(`behavior ${behaviorId}: ${response.status || "ok"}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`behavior ${behaviorId} failed: ${error.message}`);
+      }
+    }
+
+    async function postEvent(path, payload) {
+      try {
+        const response = await requestJson(path, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        log(`${path}: ${response.status || "ok"}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`${path} failed: ${error.message}`);
+      }
+    }
+
+    async function applyEyeColor(payload, label) {
+      try {
+        const response = await requestJson("/api/v1/face/color", {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        syncEyeColorControls(response.eye_color || {});
+        log(`${label}: ${response.status || "ok"}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`${label} failed: ${error.message}`);
+      }
+    }
+
+    async function applyLedSettings() {
+      const payload = {
+        enabled: ledEnabledInput.checked,
+        color_count: Number(ledColorCountInput.value || 1),
+        breath_brightness: Number(ledBreathBrightnessInput.value || 0),
+        global_min_brightness: Number(ledGlobalMinInput.value || 0),
+        global_max_brightness: Number(ledGlobalMaxInput.value || 0),
+        breath_period_ms: Number(ledBreathPeriodInput.value || 2800),
+        colors: ledColorInputs.map((input) => input.value),
+      };
+      try {
+        const response = await requestJson("/api/v1/settings/led", {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        syncLedSettingsControls(response.led || payload);
+        log(`led settings: ${response.status || "ok"}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`led settings failed: ${error.message}`);
+      }
+    }
+
+    async function applyCpuMode(mode) {
+      try {
+        const response = await requestJson("/api/v1/settings/cpu", {
+          method: "POST",
+          body: JSON.stringify({ mode })
+        });
+        state.cpuMode = response.mode || mode;
+        state.cpuFreqMhz = Number(response.freq_mhz || state.cpuFreqMhz || 0);
+        refreshLedSettingsReadout();
+        log(`cpu mode ${state.cpuMode}: ${response.status || "ok"}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`cpu mode ${mode} failed: ${error.message}`);
+      }
+    }
+
+    async function setTimer() {
+      const durationSeconds =
+        Math.max(0, Number(timerMinutesInput.value || 0)) * 60 +
+        Math.max(0, Number(timerSecondsInput.value || 0));
+      try {
+        const response = await requestJson("/api/v1/timer", {
+          method: "POST",
+          body: JSON.stringify({ duration_seconds: durationSeconds })
+        });
+        syncTimerStatus(response.timer || {});
+        log(`timer set: ${formatDuration(response.timer?.duration_seconds || durationSeconds)}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`timer set failed: ${error.message}`);
+      }
+    }
+
+    async function cancelTimer() {
+      try {
+        const response = await requestJson("/api/v1/timer/cancel", {
+          method: "POST",
+          body: JSON.stringify({})
+        });
+        syncTimerStatus(response.timer || {});
+        log("timer cancelled");
+        scheduleRefresh();
+      } catch (error) {
+        log(`timer cancel failed: ${error.message}`);
+      }
+    }
+
+    async function checkTimer() {
+      try {
+        const response = await requestJson("/api/v1/timer/check", {
+          method: "POST",
+          body: JSON.stringify({})
+        });
+        syncTimerStatus(response.timer || {});
+        log(`timer remaining: ${formatDuration(response.timer?.remaining_seconds || 0)}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`timer check failed: ${error.message}`);
+      }
+    }
+
+    async function queryAmapWeather() {
+      try {
+        const response = await requestJson("/api/v1/event/weather/query", {
+          method: "POST",
+          body: JSON.stringify({})
+        });
+        log(`/api/v1/event/weather/query: ${response.status || "ok"}`);
+        weatherStatusEl.textContent = "Device weather query requested.";
+        scheduleRefresh();
+      } catch (error) {
+        weatherStatusEl.textContent = `weather query failed: ${error.message}`;
+        log(`weather query failed: ${error.message}`);
+      }
+    }
+
+    function initWeatherButtons() {
+      const conditions = ["sunny", "cloud", "rain", "snow", "thunderstorm", "windy", "stars", "cold"];
+      weatherGrid.innerHTML = "";
+      for (const condition of conditions) {
+        const button = document.createElement("button");
+        button.className = "secondary";
+        button.textContent = condition;
+        button.addEventListener("click", () => postEvent("/api/v1/event/weather", { condition }));
+        weatherGrid.appendChild(button);
+      }
+    }
+
+    function initSpeech() {
+      const RecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const hasRecognition = Boolean(RecognitionCtor);
+      const hasSynthesis = "speechSynthesis" in window;
+
+      speechCapabilitiesEl.textContent = [
+        `SpeechRecognition: ${hasRecognition ? "yes" : "no"}`,
+        `speechSynthesis: ${hasSynthesis ? "yes" : "no"}`,
+        `MediaDevices: ${navigator.mediaDevices?.getUserMedia ? "yes" : "no"}`
+      ].join(" / ");
+
+      if (!hasRecognition) {
+        return;
+      }
+
+      const recognition = new RecognitionCtor();
+      recognition.lang = "zh-CN";
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      recognition.onstart = () => log("browser speech recognition started");
+      recognition.onresult = (event) => {
+        let transcript = "";
+        for (const result of event.results) {
+          transcript += result[0].transcript;
+        }
+        manualTranscript.value = transcript.trim();
+      };
+      recognition.onerror = (event) => {
+        log(`browser speech recognition error: ${event.error}`);
+      };
+      recognition.onend = () => {
+        log("browser speech recognition ended");
+      };
+      state.recognition = recognition;
+    }
+
+    async function startConversation() {
+      try {
+        await requestJson("/api/v1/conversation/start", {
+          method: "POST",
+          body: JSON.stringify({})
+        });
+        log("conversation started");
+        if (state.speechEnabled && state.recognition) {
+          try {
+            await navigator.mediaDevices.getUserMedia({ audio: true });
+            state.recognition.start();
+          } catch (error) {
+            log(`microphone unavailable: ${error.message}`);
+          }
+        }
+        scheduleRefresh();
+      } catch (error) {
+        log(`conversation start failed: ${error.message}`);
+      }
+    }
+
+    function speak(text) {
+      if (!state.speechEnabled || !("speechSynthesis" in window) || !text) {
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "zh-CN";
+      window.speechSynthesis.speak(utterance);
+      state.lastReply = text;
+    }
+
+    async function commitConversation(success) {
+      const payload = {
+        transcript: manualTranscript.value.trim(),
+        behavior_id: manualBehavior.value.trim() || undefined,
+        response_text: manualReply.value.trim() || undefined,
+        success
+      };
+      try {
+        if (state.recognition) {
+          state.recognition.stop();
+        }
+        const response = await requestJson("/api/v1/conversation/commit", {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        if (payload.response_text) {
+          speak(payload.response_text);
+        }
+        log(`conversation commit: ${response.status || "ok"}`);
+        scheduleRefresh();
+      } catch (error) {
+        log(`conversation commit failed: ${error.message}`);
+      }
+    }
+
+    async function cancelConversation() {
+      try {
+        if (state.recognition) {
+          state.recognition.stop();
+        }
+        await requestJson("/api/v1/conversation/cancel", {
+          method: "POST",
+          body: JSON.stringify({})
+        });
+        log("conversation cancelled");
+        scheduleRefresh();
+      } catch (error) {
+        log(`conversation cancel failed: ${error.message}`);
+      }
+    }
+
+    function saveDeviceUrl() {
+      state.deviceUrl = normalizeDeviceUrl(deviceUrlInput.value);
+      state.sameOriginProbeAttempted = false;
+      if (state.deviceUrl) {
+        localStorage.setItem(storeKey, state.deviceUrl);
+      } else {
+        localStorage.removeItem(storeKey);
+      }
+      state.behaviorVersion = "";
+      state.loadedBehaviorVersion = "";
+      state.deviceInfo = null;
+      state.deviceInfoFetchedAt = 0;
+      state.weatherSettingsLoaded = false;
+      state.lastRefreshError = "";
+      log(`saved device url: ${state.deviceUrl}`);
+      refreshDevice(true);
+    }
+
+    document.getElementById("save-url").addEventListener("click", saveDeviceUrl);
+    deviceUrlInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        saveDeviceUrl();
+      }
+    });
+
+    document.getElementById("refresh-device").addEventListener("click", refreshDevice);
+    document.getElementById("start-listen").addEventListener("click", startConversation);
+    document.getElementById("cancel-conversation").addEventListener("click", cancelConversation);
+    document.getElementById("commit-conversation").addEventListener("click", () => commitConversation(true));
+    document.getElementById("commit-failure").addEventListener("click", () => commitConversation(false));
+
+    document.getElementById("toggle-speech").addEventListener("click", () => {
+      state.speechEnabled = !state.speechEnabled;
+      log(`browser speech ${state.speechEnabled ? "enabled" : "disabled"}`);
+    });
+
+    document.getElementById("speak-last").addEventListener("click", () => speak(state.lastReply || manualReply.value.trim()));
+    document.getElementById("apply-eye-color").addEventListener("click", () => applyEyeColor({
+      preset: "custom",
+      hue: clampUnit(eyeHueInput.value),
+      saturation: clampUnit(eyeSaturationInput.value)
+    }, "eye color custom"));
+    document.getElementById("reset-eye-color").addEventListener("click", () => applyEyeColor({ preset: "official" }, "eye color official"));
+    document.getElementById("apply-led-settings").addEventListener("click", applyLedSettings);
+    document.getElementById("set-timer").addEventListener("click", setTimer);
+    document.getElementById("check-timer").addEventListener("click", checkTimer);
+    document.getElementById("cancel-timer").addEventListener("click", cancelTimer);
+    document.getElementById("save-weather-settings").addEventListener("click", saveWeatherSettings);
+    document.getElementById("query-amap-weather").addEventListener("click", queryAmapWeather);
+    for (const input of [amapKeyInput, amapCityInput]) {
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          saveWeatherSettings();
+        }
+      });
+    }
+
+    for (const element of [
+      ledColorCountInput,
+      ledBreathBrightnessInput,
+      ledGlobalMinInput,
+      ledGlobalMaxInput,
+      ledBreathPeriodInput,
+    ]) {
+      element.addEventListener("input", refreshLedSettingsReadout);
+    }
+
+    for (const button of document.querySelectorAll(".cpu-mode-btn")) {
+      button.addEventListener("click", () => applyCpuMode(button.dataset.mode));
+    }
+
+    for (const button of document.querySelectorAll(".notification-btn")) {
+      button.addEventListener("click", () => postEvent("/api/v1/event/notification", { pulse: button.dataset.pulse === "true" }));
+    }
+    for (const button of document.querySelectorAll(".holiday-btn")) {
+      button.addEventListener("click", () => playBehavior(button.dataset.behavior, true));
+    }
+    for (const button of document.querySelectorAll(".imu-btn")) {
+      button.addEventListener("click", () => postEvent("/api/v1/debug/imu", { direction: button.dataset.direction }));
+    }
+
+    initEyeColorControls();
+    syncLedSettingsControls();
+    initWeatherButtons();
+    initSpeech();
+    refreshDevice();
+    state.pollTimer = setInterval(refreshDevice, pollIntervalMs);
+  </script>
+</body>
+</html>
