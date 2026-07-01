@@ -1,3 +1,6 @@
 # 忽略 topic 目录下所有内容
 /topic/
 /data/vide0/
+
+# Deepwork local progress notes
+.slim/deepwork/
