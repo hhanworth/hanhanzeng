@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hhan.top | Topic</title>
+  <link rel="stylesheet" href="../stylesheet.css">
+  <style>
+    :root {
+      --bg: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.14), transparent 28%),
+            radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.18), transparent 30%),
+            #0f172a;
+      --panel: rgba(17, 24, 39, 0.78);
+      --panel-border: rgba(148, 163, 184, 0.3);
+      --panel-hover: rgba(94, 234, 212, 0.4);
+      --text-main: #e5e7eb;
+      --text-dim: #94a3b8;
+      --accent: #34d399;
+      --glow: 0 8px 30px rgba(52, 211, 153, 0.08);
+    }
+
+    body.topic-body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .topic-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 56px 20px 72px;
+    }
+
+    .topic-hero {
+      margin-bottom: 36px;
+    }
+
+    .topic-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.16);
+      color: var(--text-main);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .topic-title {
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.2;
+      color: #f8fafc;
+      letter-spacing: -0.01em;
+    }
+
+    .topic-subtitle {
+      margin: 0;
+      max-width: 1080px;
+      color: var(--text-dim);
+      font-size: 1rem;
+    }
+
+    .topic-sensor-card {
+      margin-top: 20px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--glow);
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+    }
+
+    .topic-sensor-image {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid var(--panel-border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .topic-sensor-caption {
+      margin: 0;
+      max-width: 720px;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      margin-top: 24px;
+    }
+
+    .video-card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--glow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .video-card:hover {
+      border-color: var(--panel-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 38px rgba(52, 211, 153, 0.12);
+    }
+
+    .video-meta h2 {
+      margin: 6px 0 4px;
+      font-size: 18px;
+      color: #f8fafc;
+      letter-spacing: -0.005em;
+    }
+
+    .video-meta p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .video-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--panel-border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #0b1224;
+    }
+
+    @media (min-width: 960px) {
+      .video-wrapper video {
+        max-height: 70vh; /* 桌面端提升视觉占比 */
+      }
+    }
+
+    .topic-footer {
+      margin-top: 28px;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body class="topic-body">
+  <div class="topic-shell">
+    <header class="topic-hero">
+      <span class="topic-kicker">ETS实验室</span>
+      <h1 class="topic-title">TacHalo</h1>
+      <p class="topic-subtitle"> TacHalo是一款基于单目视觉的视触觉传感器，可以仅凭少量训练数据实现接触表面形变、接触力和压力场分布估计。 </p>
+
+      <figure class="topic-sensor-card">
+        <picture>
+          <source srcset="449.png" type="image/png">
+          <img class="topic-sensor-image" src="449.pic" alt="TacHalo 视触觉传感器主体外观" loading="lazy">
+        </picture>
+        <figcaption class="topic-sensor-caption">TacHalo 传感器主体外观</figcaption>
+      </figure>
+    </header>
+
+    <section class="video-grid">
+      <article class="video-card">
+        <div class="video-meta">
+          <span class="pill">video1.mp4</span>
+          <h2>按压测试</h2>
+          <p>当使用方形压头对TacHalo接触面施加外力时，传感器在z方向（法向）可实现0-6N量程范围内的接触力估计（均方根误差为0.12N）；在x和y方向（切向）可实现0-5N量程范围内的接触力估计（均方根误差分别为0.15N和0.12N）。</p>
+        </div>
+        <div class="video-wrapper">
+          <video src="https://doc.hhan.top/4a588a4ab3301cc8d751d300f22c5a3a.mp4" autoplay loop muted playsinline controls></video>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-meta">
+          <span class="pill">video2.mp4</span>
+          <h2>超量程测试</h2>
+          <p>为评估TacHalo在超出标定量程时的响应稳定性，本实验对接触面施加逐步增大的外力，使真实载荷超过训练与标定范围。该视频主要用于定性观察超量程阶段输出的连续性、饱和趋势与潜在漂移，而非作为量程内精度指标的补充。</p>
+        </div>
+        <div class="video-wrapper">
+          <video src="https://doc.hhan.top/e2594245d2131731292e782d91d7f072.mp4" autoplay loop muted playsinline controls></video>
+        </div>
+      </article>
+    </section>
+
+    <footer class="topic-footer">
+      
+    </footer>
+  </div>
+</body>
+</html>
