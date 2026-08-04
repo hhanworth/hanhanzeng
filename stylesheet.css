@@ -204,41 +204,6 @@ del {
   color: var(--text-muted);
 }
 
-/* Sidebar Widget */
-.sidebar-widget {
-  margin-top: 1rem;
-}
-
-.map-container {
-  height: 180px;
-  width: 260px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid var(--border-color-muted);
-  border-radius: var(--radius-md);
-  padding: 0.5rem;
-  background-color: #ffffff;
-  overflow: hidden;
-  transition: var(--transition-surface);
-}
-
-.map-container:hover {
-  border-color: var(--accent-color);
-}
-
-@media (max-width: 820px) {
-  .sidebar-widget {
-    display: block; /* Preserve visibility/responsiveness on mobile */
-    margin-top: 1.5rem;
-  }
-  .map-container {
-    width: 260px;
-    height: 180px;
-    margin: 0 auto;
-  }
-}
-
 /* Main Content Area */
 .site-main {
   display: flex;

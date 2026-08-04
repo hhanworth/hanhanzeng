@@ -1,230 +1,40 @@
+<!--
+ * @Author: hhan
+ * @Date: 2026-07-01 18:06:56
+ * @LastEditTime: 2026-07-01 19:22:11
+ * @Description: 
+-->
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Hanhan Zeng | 曾涵涵</title>
-  <meta name="author" content="Hanhan Zeng | 曾涵涵">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="https://doc.hhan.top/image/favicon/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <title>Hanhan Zeng | Minimal Terminal</title>
+  <link rel="shortcut icon" href="../../images/favicon/favicon.ico" type="image/x-icon">
+  <style>
+    :root{--bg:#f6f5ee;--panel:#fffdf7;--ink:#18201d;--muted:#66706b;--line:#d9ded5;--green:#557468;--amber:#9b7a43;--mono:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;--serif:Georgia,"Noto Serif CJK SC","Songti SC",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC",sans-serif}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 18% -8%,#e6efe9 0 20rem,transparent 36rem),var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.78;min-height:100vh}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(24,32,29,.035) 0 1px,transparent 1px 7px);opacity:.35;animation:scan 12s linear infinite} @keyframes scan{to{transform:translateY(28px)}}
+    a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(85,116,104,.35)} a:hover{border-bottom-color:currentColor} del{color:#8a918c;text-decoration-color:var(--amber)}
+    .wrap{width:min(1120px,calc(100% - 40px));margin:auto;padding:38px 0 56px}.terminal{border:1px solid var(--line);background:rgba(255,253,247,.86);box-shadow:0 24px 70px rgba(40,51,45,.08);border-radius:18px;overflow:hidden}.bar{height:42px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 16px;font-family:var(--mono);font-size:12px;color:var(--muted);background:rgba(246,245,238,.72)}.dot{width:9px;height:9px;border-radius:50%;background:#c9d1c7}.dot:nth-child(2){background:#d8c9a4}.dot:nth-child(3){background:#9fb8ac}.path{margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    header{display:grid;grid-template-columns:140px 1fr;gap:30px;padding:42px;border-bottom:1px solid var(--line)}.avatar{width:122px;height:122px;border-radius:16px;object-fit:cover;filter:grayscale(.25) contrast(.96);border:1px solid var(--line)}.eyebrow,.meta,time{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}.prompt:before{content:"$ ";color:var(--green)}h1{font:500 clamp(2.2rem,6vw,5rem)/.95 var(--serif);margin:.35rem 0 .8rem;letter-spacing:-.055em}.typing{display:inline-block;overflow:hidden;white-space:nowrap;border-right:1px solid var(--green);max-width:100%;animation:type 2s steps(18,end),caret 1.4s step-end infinite}@keyframes type{from{width:0}to{width:100%}}@keyframes caret{50%{border-color:transparent}}.intro{max-width:760px;color:#3f4944;font-size:1.04rem}.links{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;font-family:var(--mono);font-size:13px}
+    main{display:grid;grid-template-columns:280px 1fr}.side{padding:34px 30px;border-right:1px solid var(--line);background:rgba(246,245,238,.42)}.side section+section{margin-top:30px}.label{font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}.side p{margin:0;color:var(--muted);font-size:.94rem}.feed{padding:34px 42px}.feed-head{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed var(--line);padding-bottom:14px;margin-bottom:20px}.feed-head h2{font:500 1rem var(--mono);margin:0;letter-spacing:.08em}.note{position:relative;padding:26px 0 26px 28px;border-bottom:1px solid var(--line);opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}.note.visible{opacity:1;transform:none}.note:before{content:"";position:absolute;left:0;top:34px;width:8px;height:8px;border:1px solid var(--green);border-radius:50%;background:var(--panel)}.note h3{font:500 clamp(1.35rem,3vw,2.2rem)/1.12 var(--serif);margin:.25rem 0 .8rem;letter-spacing:-.02em}.note p{margin:.6rem 0;color:#39423e}.media{margin-top:14px;max-width:430px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}.media img{display:block;width:100%;height:auto;filter:saturate(.8) contrast(.97)}footer{padding:20px 42px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+    @media(max-width:820px){.wrap{width:min(100% - 24px,720px);padding:18px 0 36px}header{grid-template-columns:1fr;padding:26px}.avatar{width:96px;height:96px}main{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid var(--line);padding:24px}.feed{padding:24px}.feed-head,footer{flex-direction:column}.typing{white-space:normal;border-right:0;animation:none}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.note{opacity:1;transform:none}.typing{border-right:0;white-space:normal}}
+  </style>
 </head>
-
 <body>
-  <div class="layout-container">
-
-    <!-- Sidebar / Header -->
-    <header class="site-header reveal" data-reveal="1">
-      <div class="profile-area">
-        <a href="https://doc.hhan.top/image/HanhanZeng.jpg" class="profile-image-link">
-          <img class="profile-image" alt="曾涵涵的头像" src="https://doc.hhan.top/image/HanhanZeng.jpg">
-        </a>
-        <h1 class="site-title">曾涵涵</h1>
-        <p class="site-description">
-          我是一名<del>本科生</del> 硕士研究生，就读于<del><a href="https://www.xust.edu.cn/">西安科技大学</a></del> <a href="https://yjsxy.sut.edu.cn/">沈阳工业大学。</a>主要从事过程控制及视触觉传感器力测量等方面的工作。
-        </p>
-        <nav class="site-links" aria-label="联系方式">
-          <a href="mailto:hhan00@email.cn">Email</a>
-          <span class="separator">/</span>
-          <a href="https://github.com/hhanworth" target="_blank" rel="noopener noreferrer">Github</a>
-        </nav>
-      </div>
-
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="site-main">
-
-      <!-- About Section -->
-      <section class="content-section reveal" data-reveal="2" aria-labelledby="about-heading">
-        <h2 id="about-heading" class="section-title">About Me</h2>
-        <p>
-          本人生于2002年二月,因为从小对电脑 <del> 游戏 </del> 的兴趣走上了秃头程序员的道路。我是个 Geeker，喜欢倒腾一些莫名其妙的东西，不过常常失败就是了。
-        </p>
-      </section>
-
-      <!-- Research Section -->
-      <section class="content-section reveal" data-reveal="3" aria-labelledby="research-heading">
-        <h2 id="research-heading" class="section-title">Research</h2>
-        <p>
-          我对计算机视觉、深度学习、生成式 AI 和图像处理感兴趣。我的大部分工作都依据我的个人兴趣，有很多“烂尾工程”。我会尽量整理出来。
-        </p>
-      </section>
-
-      <!-- Notes Feed Section -->
-      <section class="content-section reveal" data-reveal="4" aria-labelledby="notes-heading">
-        <h2 id="notes-heading" class="section-title">Notes & Research Logs</h2>
-        <div class="notes-feed">
-
-          <!-- Note 6: halo cubic -->
-          <article class="note-card note-card--plain">
-            <div class="note-content">
-              <h3 class="note-title-wrap">
-                <span class="note-title-text">halo cubic</span>
-              </h3>
-              <p>
-                忙碌了小半个月，把大三时的愿望完成了。成功复刻了稚晖君的halo cubic；现在开启送礼计划，计划量产，送好朋友每人一个（优先女生朋友，Hhhh）。
-              </p>
-              <div class="note-image-inline">
-                <img alt="复刻的 halo cubic 硬件成品" src="images/resource/halocubic.png" width="2002" height="1696" loading="lazy">
-              </div>
-              <footer class="note-footer">
-                <time datetime="2025-12-04" class="note-meta">20251204于沈阳工业大学</time>
-              </footer>
-            </div>
-          </article>
-
-          <!-- Note 5: 无透镜 -->
-          <article class="note-card note-card--plain">
-            <div class="note-content">
-              <h3 class="note-title-wrap">
-                <span class="note-title-text">无透镜</span>
-              </h3>
-              <p>
-                附上最近的学习<a href="https://github.com/hhanworth/obsidian">笔记</a>。
-              </p>
-              <footer class="note-footer">
-                <time datetime="2025-11-18" class="note-meta">20251118于沈阳工业大学</time>
-              </footer>
-            </div>
-          </article>
-
-          <!-- Note 4: Zmotion多轴运动平台 -->
-          <article class="note-card note-card--plain">
-            <div class="note-content">
-              <h3 class="note-title-wrap">
-                <a href="https://github.com/hhanworth/TODO" target="_blank" rel="noopener noreferrer" class="note-title-link">Zmotion多轴运动平台</a>
-              </h3>
-              <p>
-                Zmotion的运动控制板卡，配合驱动器实现对多轴（3轴）运动平台的控制。
-                厂家提供 C++ 的SDK，通过一些 DLL 封装可以实现通过 python 对板卡的驱动。仓库为整理的板卡控制资料，以及大致接线方式。
-              </p>
-              <p>
-                由于该 Dll 只支持 win64 ，我的平台是 macOS ，选择使用 windows11 虚拟机运行 dll 驱动与macOS通过共享文件方式通讯实现整体控制（类似 Linux 共享内存方式）。
-              </p>
-              <p>
-                另外仓库中包含摄像头采集、深度学习训练等代码。
-                <br>TODO：待上传。
-              </p>
-              <footer class="note-footer">
-                <time datetime="2025-07-07" class="note-meta">20250707于沈阳工业大学</time>
-              </footer>
-            </div>
-          </article>
-
-          <!-- Note 3: jpeg编解码压缩 -->
-          <article class="note-card note-card--media" data-image="https://doc.hhan.top/image/sheep/IMG_3418.JPG">
-            <div class="note-media" aria-hidden="true"></div>
-            <div class="note-content">
-              <h3 class="note-title-wrap">
-                <a href="https://github.com/hhanworth/jpeg" target="_blank" rel="noopener noreferrer" class="note-title-link">jpeg编解码压缩</a>
-              </h3>
-              <p>
-                西安科技大学智科大三课程设计，编程语言是python；代码已上传<a href="https://github.com/hhanworth/jpeg" target="_blank" rel="noopener noreferrer">Github</a>。
-              </p>
-              <p>
-                从原理入手实现JPEG图像压缩，包括YUV420采样、DCT变换、Z字扫描、量化、游程编码、霍夫曼编码/算术编码。
-              </p>
-              <p>
-                大部分代码原理基于<a href="https://www.codingnow.com" target="_blank" rel="noopener noreferrer">云风</a>编写的<a href="data/jpeg简易文档.rtf">jpeg简易文档</a>，可供下载查看。
-              </p>
-              <footer class="note-footer">
-                <time datetime="2025-04-30" class="note-meta">20250430于沈阳工业大学</time>
-              </footer>
-            </div>
-          </article>
-
-          <!-- Note 2: 关于此网站 -->
-          <article class="note-card note-card--plain">
-            <div class="note-content">
-              <h3 class="note-title-wrap">
-                <a href="https://github.com/hhanworth/hanhanzeng" class="note-title-link">关于此网站</a>
-              </h3>
-              <p>
-                由<a href="https://jonbarron.info" target="_blank" rel="noopener noreferrer">Jon Barron</a>项目二次开发而来。
-                主要内容：<br>1.编辑<a
-                  href="https://github.com/hhanworth/hanhanzeng/blob/main/index.html" target="_blank" rel="noopener noreferrer">index.html</a>后push到github自动部署到服务器；免去了服务商跑路，备份的烦恼。<br>
-                2.子页面可以纯前端直接渲染Markdown内容，文章编写更加方便。<br>
-                它们由<a
-                  href="https://github.com/hhanworth/hanhanzeng/blob/main/hook.php" target="_blank" rel="noopener noreferrer">hook.php</a>和<a
-                  href="https://github.com/hhanworth/hanhanzeng/settings/hooks" target="_blank" rel="noopener noreferrer">webhook</a>功能以及<a
-                  href="https://github.com/markedjs/marked" target="_blank" rel="noopener noreferrer">marked</a>（一个很流行的前端 Markdown 解析器）实现。具体见项目<a
-                  href="https://github.com/hhanworth/hanhanzeng/readme.md" target="_blank" rel="noopener noreferrer">readme自述文件。</a>
-              </p>
-              <footer class="note-footer">
-                <time datetime="2025-04-29" class="note-meta">20250429于沈阳工业大学</time>
-              </footer>
-            </div>
-          </article>
-
-          <!-- Note 1: 20250428一切的开始 -->
-          <article class="note-card note-card--media">
-            <div class="note-media" aria-hidden="true"></div>
-            <div class="note-content">
-              <h3 class="note-title-wrap">
-                <span class="note-title-text">20250428一切的开始</span>
-              </h3>
-              <p>
-                在大三接触了云服务器，兜兜转转经历国内备案等繁琐手续到注销备案，再到现在<del>选择香港云虚拟主机。
-                今天，花费三元巨款购入香港云虚拟主机，搭建了这个网站。</del> 2025.10.15, 现已免费托管至 render.com 。
-              </p>
-              <p>
-                在我整个本科四年学习生涯中，学习了很多技术，包括：
-                Linux系统编程、Linux网络编程、树莓派驱动、FOC、YOLO v1、ROS、JPEG编解码压缩和方块编码压缩等。
-                而许多项目因为各种原因（<del>主要是懒</del>）都不了了之。
-              </p>
-              <p>
-                之后我会对之前的内容进行整理发布。
-              </p>
-              <footer class="note-footer">
-                <time datetime="2025-04-28" class="note-meta">20250428于沈阳工业大学</time>
-              </footer>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <!-- Site Footer -->
-      <footer class="site-footer">
-        <p class="credit">
-          <!-- The website template is from <a href="https://jonbarron.info" target="_blank" rel="noopener noreferrer">Jon Barron</a>. -->
-        </p>
-      </footer>
-    </main>
-
-  </div>
-
-  <script>
-    // 可选：配置图片目录与文件（默认使用图床 image/sheep 中样例）
-    window.SHEEP_DIR = 'https://doc.hhan.top/image/sheep';
-    window.SHEEP_IMAGES = [
-      'IMG_3416.JPG','IMG_3417.JPG','IMG_3418.JPG','IMG_3419.JPG','IMG_3420.JPG','IMG_3421.JPG'
-    ];
-    (function () {
-      var list = (window.SHEEP_IMAGES || []).map(function (f) {
-        return (window.SHEEP_DIR || 'https://doc.hhan.top/image/sheep') + '/' + f;
-      });
-      document.querySelectorAll('.note-card--media').forEach(function (card) {
-        var media = card.querySelector('.note-media');
-        if (!media) return;
-        var src = card.getAttribute('data-image');
-        if (!src && list.length) {
-          src = list[Math.floor(Math.random() * list.length)];
-        }
-        if (src) {
-          var img = new Image();
-          var titleEl = card.querySelector('.note-title-text, .note-title-link');
-          img.alt = '';
-          img.loading = 'lazy';
-          img.src = src;
-          media.appendChild(img);
-        } else {
-          media.style.display = 'none';
-        }
-      });
-    })();
-  </script>
+  <div class="wrap"><div class="terminal"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>minimal-terminal</span><span class="path">~/hanhan/notes</span></div>
+    <header><img class="avatar" src="../../images/HanhanZeng.jpg" alt="曾涵涵"><div><div class="eyebrow prompt">profile --read</div><h1><span class="typing">Hanhan Zeng / 曾涵涵</span></h1><p class="intro">我是一名<del>本科生</del> 硕士研究生，就读于<del><a href="https://www.xust.edu.cn/">西安科技大学</a></del> <a href="https://yjsxy.sut.edu.cn/">沈阳工业大学</a>。主要从事过程控制及视触觉传感器力测量等方面的工作。</p><nav class="links" aria-label="联系方式"><a href="mailto:hhan00@email.cn">email</a><a href="https://github.com/hhanworth" target="_blank" rel="noopener noreferrer">github</a></nav></div></header>
+    <main><aside class="side"><section><h2 class="label">About</h2><p>本人生于2002年二月，因为从小对电脑 <del>游戏</del> 的兴趣走上了秃头程序员的道路。我是个 Geeker，喜欢倒腾一些莫名其妙的东西，不过常常失败就是了。</p></section><section><h2 class="label">Research</h2><p>我对计算机视觉、深度学习、生成式 AI 和图像处理感兴趣。我的大部分工作都依据我的个人兴趣，有很多“烂尾工程”。我会尽量整理出来。</p></section></aside>
+      <section class="feed" aria-labelledby="notes"><div class="feed-head"><h2 id="notes">NOTES & RESEARCH LOGS</h2><span class="meta">COUNT=06</span></div>
+        <article class="note"><time datetime="2025-12-04">20251204 于沈阳工业大学</time><h3>halo cubic</h3><p>忙碌了小半个月，把大三时的愿望完成了。成功复刻了稚晖君的halo cubic；现在开启送礼计划，计划量产，送好朋友每人一个（优先女生朋友，Hhhh）。</p><div class="media"><img src="../../images/resource/halocubic.png" alt="复刻的 halo cubic 硬件成品" loading="lazy"></div></article>
+        <article class="note"><time datetime="2025-11-18">20251118 于沈阳工业大学</time><h3>无透镜</h3><p>附上最近的学习<a href="https://github.com/hhanworth/obsidian" target="_blank" rel="noopener noreferrer">笔记</a>。</p></article>
+        <article class="note"><time datetime="2025-07-07">20250707 于沈阳工业大学</time><h3><a href="https://github.com/hhanworth/TODO" target="_blank" rel="noopener noreferrer">Zmotion多轴运动平台</a></h3><p>Zmotion的运动控制板卡，配合驱动器实现对多轴（3轴）运动平台的控制。厂家提供 C++ 的SDK，通过一些 DLL 封装可以实现通过 python 对板卡的驱动。仓库为整理的板卡控制资料，以及大致接线方式。</p><p>由于该 Dll 只支持 win64 ，我的平台是 macOS ，选择使用 windows11 虚拟机运行 dll 驱动与macOS通过共享文件方式通讯实现整体控制（类似 Linux 共享内存方式）。</p><p>另外仓库中包含摄像头采集、深度学习训练等代码。<br>TODO：待上传。</p></article>
+        <article class="note"><time datetime="2025-04-30">20250430 于沈阳工业大学</time><h3><a href="https://github.com/hhanworth/jpeg" target="_blank" rel="noopener noreferrer">jpeg编解码压缩</a></h3><p>西安科技大学智科大三课程设计，编程语言是python；代码已上传<a href="https://github.com/hhanworth/jpeg" target="_blank" rel="noopener noreferrer">Github</a>。</p><p>从原理入手实现JPEG图像压缩，包括YUV420采样、DCT变换、Z字扫描、量化、游程编码、霍夫曼编码/算术编码。大部分代码原理基于<a href="https://www.codingnow.com" target="_blank" rel="noopener noreferrer">云风</a>编写的<a href="../../data/jpeg简易文档.rtf">jpeg简易文档</a>，可供下载查看。</p><div class="media"><img src="../../images/sheep/IMG_3418.JPG" alt="JPEG 编解码压缩相关图片" loading="lazy"></div></article>
+        <article class="note"><time datetime="2025-04-29">20250429 于沈阳工业大学</time><h3><a href="https://github.com/hhanworth/hanhanzeng" target="_blank" rel="noopener noreferrer">关于此网站</a></h3><p>由<a href="https://jonbarron.info" target="_blank" rel="noopener noreferrer">Jon Barron</a>项目二次开发而来。主要内容：<br>1. 编辑<a href="https://github.com/hhanworth/hanhanzeng/blob/main/index.html" target="_blank" rel="noopener noreferrer">index.html</a>后push到github自动部署到服务器；免去了服务商跑路，备份的烦恼。<br>2. 子页面可以纯前端直接渲染Markdown内容，文章编写更加方便。<br>它们由<a href="https://github.com/hhanworth/hanhanzeng/blob/main/hook.php" target="_blank" rel="noopener noreferrer">hook.php</a>和<a href="https://github.com/hhanworth/hanhanzeng/settings/hooks" target="_blank" rel="noopener noreferrer">webhook</a>功能以及<a href="https://github.com/markedjs/marked" target="_blank" rel="noopener noreferrer">marked</a>实现。具体见项目<a href="https://github.com/hhanworth/hanhanzeng/readme.md" target="_blank" rel="noopener noreferrer">readme自述文件</a>。</p></article>
+        <article class="note"><time datetime="2025-04-28">20250428 于沈阳工业大学</time><h3>20250428一切的开始</h3><p>在大三接触了云服务器，兜兜转转经历国内备案等繁琐手续到注销备案，再到现在<del>选择香港云虚拟主机。今天，花费三元巨款购入香港云虚拟主机，搭建了这个网站。</del> 2025.10.15, 现已免费托管至 render.com 。</p><p>在我整个本科四年学习生涯中，学习了很多技术，包括：Linux系统编程、Linux网络编程、树莓派驱动、FOC、YOLO v1、ROS、JPEG编解码压缩和方块编码压缩等。而许多项目因为各种原因（<del>主要是懒</del>）都不了了之。</p><p>之后我会对之前的内容进行整理发布。</p></article>
+      </section></main><footer><span>Minimal Terminal</span><span>Hanhan Zeng © 2026</span></footer></div></div>
+  <script>document.addEventListener('DOMContentLoaded',function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.note').forEach(function(n){n.classList.add('visible')});return}var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.08});document.querySelectorAll('.note').forEach(function(n){o.observe(n)})});</script>
 </body>
-
 </html>

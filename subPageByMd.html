@@ -149,18 +149,19 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
-        const file = params.get('file')+'.md';
+        const contentEl = document.getElementById('markdown-content');
+        const fileParam = params.get('file');
+        const file = fileParam ? fileParam + '.md' : '';
 
         if (file) {
             const mdDir = file.includes('/') ? file.slice(0, file.lastIndexOf('/') + 1) : '';
 
             fetch(file)
                 .then(res => {
-                    if (!res.ok) throw new Error('无法读取 Markdown 文件：' + res.status+ file);
+                    if (!res.ok) throw new Error('无法读取 Markdown 文件：' + res.status + ' ' + file);
                     return res.text();
                 })
                 .then(mdText => {
-                    const contentEl = document.getElementById('markdown-content');
                     contentEl.innerHTML = marked.parse(mdText);
                     // Fade in the parsed content smoothly
                     contentEl.style.opacity = '1';
@@ -175,9 +176,12 @@
                     });
                 })
                 .catch(err => {
-                    document.getElementById('markdown-content').textContent = err.message;
-                    document.getElementById('markdown-content').style.opacity = '1';
+                    contentEl.textContent = err.message;
+                    contentEl.style.opacity = '1';
                 });
+        } else {
+            contentEl.textContent = '缺少 Markdown 文件参数。';
+            contentEl.style.opacity = '1';
         }
     </script>
 
