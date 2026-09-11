@@ -12,6 +12,22 @@
 - index.html
 - hook.php
 - stylesheet.css
+- CV：由简历仓库 `resume/main.tex` 导出的静态网页简历，对应 `/CV/`。
+
+## 网页简历与视频
+
+首页的 CV 链接指向 `/CV/`，该目录中的 `index.html`、`style.css` 和 `photo.jpg` 由现有静态站点部署流程一起发布。
+`/CV` 使用静态服务器的目录首页规则访问或跳转到 `/CV/`，无需新增后端路由。
+
+简历内容源位于本机 `/Volumes/GVE-1T/Document/CV/resume/main.tex`。更新源文件后执行：
+
+```bash
+python3 /Volumes/GVE-1T/Document/CV/resume/export_html.py --output /Users/han/Desktop/jonbarron.github.io-master/CV
+```
+
+导出脚本只更新 HTML 和照片；网页样式在 `CV/style.css` 中维护。提交并推送本仓库 `main` 分支后，通过已有同步流程上线。
+
+首页 halo cubic 视频直接使用 `https://doc.hhan.top/cubiccub.mov`，设置 `autoplay muted loop playsinline`，并保留原生控件供暂停或手动播放。浏览器设置或省电模式仍可能限制自动播放。
 
 ## hook
 
@@ -42,5 +58,4 @@ Secret 填写你自己在 hook.php 中指定的字符串
     </span> </a>
 ```
 调用子页面时传输“jpeg”，即文件名信息。subPageByMd纯前端直接渲染Markdown内容。
-
 
