@@ -1,485 +1,227 @@
-/*
-  huashu-design: Advanced Minimalist Personal Research Blog
-  "quiet research notebook + precise lab"
-  Warm off-white canvas, ink text, fine rule lines, restrained mineral/metal accents.
-*/
-
-:root {
-  /* Color Palette */
-  --bg-color: #fbfbf9;          /* Warm off-white canvas */
-  --text-primary: #1c1c1a;      /* Ink/Charcoal text */
-  --text-secondary: #575752;    /* Soft mineral grey for body/secondary */
-  --text-muted: #8c8c82;        /* Restrained grey for metadata */
-  --accent-color: #7d6f5d;      /* Low-saturation warm mineral/metal accent */
-  --accent-hover: #b05c31;      /* Refined orange-terracotta hover accent */
-  --border-color: #e5e5dc;      /* Very fine mineral rule lines */
-  --border-color-muted: #ededeb; /* Subtle rule lines */
-  --card-bg-plain: transparent;
-  --card-bg-media: #f5f5f0;     /* Extremely subtle warm grey card background */
-  --card-border-media: #e3e3d9;
-
-  /* Typography */
-  --font-family: 'Lato', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-
-  /* Shadows & Radius */
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --shadow-hover: 0 4px 12px rgba(125, 111, 93, 0.08);
-
-  /* Transitions */
-  --ease-out: cubic-bezier(0.25, 0.8, 0.25, 1);
-  --transition-colors: color 0.15s var(--ease-out), border-color 0.15s var(--ease-out), background-color 0.15s var(--ease-out);
-  --transition-surface: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s var(--ease-out), filter 0.3s var(--ease-out);
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
-/* Base Reset & Styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAXC-qNiXg7Q.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-  background-color: var(--bg-color);
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_FQftx9897sxZ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
-@media (max-width: 768px) {
-  html {
-    font-size: 15px;
-  }
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_Gwftx9897g.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
-body {
-  font-family: var(--font-family);
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-  line-height: 1.75;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 4rem 2rem;
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
-/* Typography elements */
-p {
-  color: var(--text-secondary);
-  margin-bottom: 1.25rem;
-  font-size: 1rem;
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
-p:last-child {
-  margin-bottom: 0;
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 a {
-  color: var(--accent-color);
+  color: #1772d0;
   text-decoration: none;
   font-weight: 500;
-  border-bottom: 1px solid var(--border-color);
-  transition: var(--transition-colors);
 }
 
-a:hover, a:focus {
-  color: var(--accent-hover);
-  border-bottom-color: var(--accent-hover);
-  outline: none;
+a:focus,
+a:hover {
+  color: #f09228;
+  text-decoration: none;
 }
 
-a:focus-visible {
-  outline: 2px solid var(--accent-hover);
-  outline-offset: 4px;
+html {
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+@media (max-width: 520px) {
+  html { font-size: 16px; }
 }
 
-del {
-  color: var(--text-muted);
-  opacity: 0.8;
-  text-decoration-color: var(--text-muted);
+body,
+td,
+th,
+tr,
+p,
+a {
+  /* 优先中文字体，其次英文字体，确保中英文都清晰 */
+  font-family: 'Lato', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', Arial, Helvetica, sans-serif;
+  font-size: 1rem;            /* 跟随 html 根字号 */
+  color: #111;                /* 提升文本对比度 */
+  line-height: 1.75;          /* 全局基础行高 */
+  text-rendering: optimizeLegibility;    /* 连字与几何微调（多数现代浏览器） */
+  word-break: break-word;                 /* 长词断行，避免溢出 */
 }
 
-/* Layout Structure */
-.layout-container {
-  max-width: 960px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 4.5rem;
-  align-items: start;
+strong {
+  font-family: 'Lato', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
 }
 
-@media (max-width: 820px) {
-  .layout-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  body {
-    padding: 2.5rem 1.25rem;
-  }
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 22px;
 }
 
-/* Header Area (Left Sidebar) */
-.site-header {
-  position: sticky;
-  top: 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.papertitle {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-@media (max-width: 820px) {
-  .site-header {
-    position: relative;
-    top: 0;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 2.5rem;
-  }
+.name {
+  padding-top: 20px;
+  margin: 0;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 32px;
 }
 
-.profile-area {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.profile-image-link {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: block;
-  border: 1px solid var(--border-color);
-  padding: 4px;
-  background-color: var(--bg-color);
-  transition: var(--transition-surface);
-}
-
-.profile-image-link:hover {
-  transform: scale(1.03);
-  border-color: var(--accent-color);
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  filter: grayscale(15%) contrast(95%);
-  transition: var(--transition-surface);
-}
-
-.profile-image-link:hover .profile-image {
-  filter: grayscale(0%) contrast(100%);
-}
-
-.site-title {
-  font-family: 'Lato', 'PingFang SC', sans-serif;
-  font-size: 1.75rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--text-primary);
-  line-height: 1.2;
-}
-
-.site-description {
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: var(--text-secondary);
-}
-
-.site-links {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.site-links a {
-  border-bottom: none;
-  font-weight: 500;
-}
-
-.separator {
-  color: var(--text-muted);
-}
-
-/* Main Content Area */
-.site-main {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-
-/* Section Common Styles */
-.content-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.section-title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--accent-color);
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Notes Feed styling */
-.notes-feed {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-/* Precise Lab Timeline Line */
-.notes-feed::before {
-  content: "";
-  position: absolute;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  left: 0;
-  width: 1px;
-  background-color: var(--border-color-muted);
-}
-
-@media (max-width: 600px) {
-  .notes-feed::before {
-    display: none; /* Stack layout on mobile doesn't need line */
-  }
-}
-
-/* Note Card */
-.note-card {
-  display: flex;
-  gap: 2rem;
-  padding: 1.75rem 0 1.75rem 2rem;
-  transition: var(--transition-surface);
-  border: none;
-  position: relative;
-}
-
-/* Precise Lab Timeline Bullet */
-.note-card::before {
-  content: "";
-  position: absolute;
-  left: -3px;
-  top: 2.2rem;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--border-color);
-  transition: var(--transition-colors);
-}
-
-.note-card:hover::before {
-  background-color: var(--accent-hover);
-}
-
-@media (max-width: 600px) {
-  .note-card {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .note-card::before {
-    display: none;
-  }
-}
-
-/* Note with media slot styling */
-.note-card--media {
-  background-color: transparent;
-  border-bottom: 1px solid var(--border-color-muted);
-}
-
-/* Plain note card styling */
-.note-card--plain {
-  background-color: transparent;
-  border-bottom: 1px solid var(--border-color-muted);
-}
-
-.note-card:last-child {
-  border-bottom: none;
-}
-
-/* Note Content structure */
-.note-media {
-  flex: 0 0 160px;
+.one {
   width: 160px;
-  height: 110px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background-color: var(--card-bg-media);
-  border: 1px solid var(--card-border-media);
-  transition: var(--transition-surface);
+  height: 160px;
+  position: relative;
 }
 
-.note-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: grayscale(10%) contrast(95%);
-  transition: transform 0.4s var(--ease-out), filter 0.4s var(--ease-out);
+.two {
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  transition: opacity .2s ease-in-out;
+  -moz-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
 }
 
-.note-card:hover .note-media {
-  border-color: var(--accent-color);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-2px);
+.fade {
+  transition: opacity .2s ease-in-out;
+  -moz-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
 }
 
-.note-card:hover .note-media img {
-  transform: scale(1.04);
-  filter: grayscale(0%) contrast(100%);
+span.highlight {
+  background-color: #ffffd0;
 }
 
-.note-content {
-  flex: 1;
-  min-width: 0;
+.colored-box {
+    color: black;
+    padding: 20px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+/* 记录卡片样式（替代 <tr bgcolor="#ffffd0">） */
+.note-cell {
+  background: #fffdf2;           /* 略提亮，提升对比 */
+  border: 1px solid #f2e8b2;     /* 边框与背景协调 */
+  border-radius: 12px;           /* 圆角更现代 */
+  padding: 14px 16px;            /* 舒适留白 */
+  vertical-align: top;           /* 内容顶部对齐 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.note-cell--plain {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.note-cell:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.note-item {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  gap: 14px;
+  align-items: flex-start;
 }
 
-.note-content p {
-  margin: 0;
-  line-height: 1.8;
-}
-
-.note-title-wrap {
-  margin: 0;
-}
-
-.note-title-link, .note-title-text {
-  font-family: var(--font-family);
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--text-primary);
-  transition: var(--transition-colors);
-}
-
-.note-title-link {
-  border-bottom: 1px solid transparent;
-}
-
-.note-title-link:hover {
-  color: var(--accent-hover);
-  border-bottom-color: var(--accent-hover);
-}
-
-/* Inline image inside note text */
-.note-image-inline {
-  margin-top: 0.5rem;
-  max-width: 80%;
-  border-radius: var(--radius-md);
+.note-media {
+  flex: 0 0 120px;
+  width: 120px;
+  height: 80px;
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
-  transition: var(--transition-surface);
+  background: #f2f2f2;
 }
 
-.note-image-inline img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.4s var(--ease-out);
+.note-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.note-content { flex: 1; min-width: 0; }
+
+.note-title { display: inline-block; margin-bottom: 6px; }
+
+.note-cell .papertitle { font-size: 17px; }
+
+.note-cell p { margin: 8px 0; line-height: 1.85; }
+
+.note-meta { text-align: right; color: #666; font-size: 12px; margin-top: 8px; }
+
+@media (max-width: 520px) {
+  .note-media { flex-basis: 96px; width: 96px; height: 72px; }
+}
+.note-title {
+  display: inline-block;
+  margin-bottom: 6px;
 }
 
-.note-image-inline:hover {
-  border-color: var(--accent-color);
-  box-shadow: var(--shadow-hover);
+.note-cell .papertitle {
+  font-size: 16px;
 }
 
-.note-image-inline:hover img {
-  transform: scale(1.02);
-}
-
-.note-footer {
-  margin-top: auto;
-  display: flex;
-  justify-content: flex-end;
+.note-cell p {
+  margin: 6px 0;
+  line-height: 1.7;
 }
 
 .note-meta {
-  font-family: var(--font-family);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-@media (max-width: 600px) {
-  .note-card {
-    flex-direction: column-reverse;
-    gap: 1rem;
-  }
-  .note-media {
-    width: 100%;
-    height: 160px;
-    flex: none;
-  }
-  .note-image-inline {
-    max-width: 100%;
-  }
-}
-
-/* Site Footer styling */
-.site-footer {
-  margin-top: 1rem;
-  border-top: 1px solid var(--border-color);
-  padding-top: 1.5rem;
-}
-
-.credit {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.credit a {
-  color: var(--text-muted);
-  border-bottom: none;
-}
-
-.credit a:hover {
-  color: var(--accent-color);
-}
-
-/* Motion & Animation (CSS first) */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reveal {
-  opacity: 0;
-  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-}
-
-.reveal[data-reveal="1"] { animation-delay: 0.12s; }
-.reveal[data-reveal="2"] { animation-delay: 0.24s; }
-.reveal[data-reveal="3"] { animation-delay: 0.36s; }
-.reveal[data-reveal="4"] { animation-delay: 0.48s; }
-
-/* Prefers Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-delay: 0s !important;
-    animation-duration: 0s !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0s !important;
-    scroll-behavior: auto !important;
-  }
-  .reveal {
-    opacity: 1;
-    animation: none;
-  }
+  text-align: right;
+  color: #666;
+  font-size: 12px;
+  margin-top: 8px;
 }

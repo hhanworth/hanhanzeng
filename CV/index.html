@@ -11,105 +11,73 @@
   <link rel="stylesheet" href="/CV/style.css">
 </head>
 <body>
-  <!-- Generated from main2.tex by export_html.py. Source SHA-256: 4b429e10325615b9fec64f4b9bea0ff5d8ed26825c0c33a02344a55088c18a8f -->
+  <!-- Generated from main2.tex and main2.pdf. TeX SHA-256: 4b429e10325615b9fec64f4b9bea0ff5d8ed26825c0c33a02344a55088c18a8f; PDF SHA-256: f35256993b823db2261ec1cc16580a16961e61207ff79b17ded7a5ca3ebf2055 -->
   <nav class="page-actions" aria-label="简历导航">
     <a href="/">返回主页</a>
-    <button type="button" id="print-resume" hidden>打印 / 保存 PDF</button>
+    <div><a href="/CV/resume.pdf" download="曾涵涵-简历.pdf">下载原 PDF</a>
+      <button type="button" id="print-resume" hidden>打印</button></div>
   </nav>
-  <main class="resume">
-    <header class="resume-header">
-      <div class="identity">
-        <h1>曾涵涵</h1>
-        <p class="role">Zeng Hanhan</p>
-        <p class="personal-details">陕西省安康市 · 2002/02/03</p>
-        <address class="contacts">
-          <a href="tel:17349164114" aria-label="电话 17349164114">17349164114</a>
-          <a href="mailto:hanhanceng@icloud.com">hanhanceng@icloud.com</a>
-          <a href="http://hhan.top">Blog: http://hhan.top</a>
-          <a href="https://github.com/hhanworth">GitHub: https://github.com/hhanworth</a>
-        </address>
-      </div>
-      <img class="portrait" src="/CV/photo.png" alt="曾涵涵的证件照" width="108" height="144">
-    </header>
-    <section aria-labelledby="section-1">
-<h2 id="section-1">教育经历</h2>
-<article class="entry">
-<p class="entry-date">20.09-24.06</p>
-<div class="entry-content">
-<h3>学士</h3>
-<p class="entry-meta">西安科技大学 · 智能科学与技术</p>
-<p><strong>主修课程：</strong>微控制器原理与应用、通信原理、数字信号处理、数字图像处理、机器视觉、信号与系统。</p>
-<ul class="entry-notes"><li>全国大学生嵌入式芯片与系统设计竞赛西部赛区三等奖  若干校级比赛三等奖</li></ul>
-</div>
-</article>
-<article class="entry">
-<p class="entry-date">24.09-至今</p>
-<div class="entry-content">
-<h3>硕士（在读）</h3>
-<p class="entry-meta">沈阳工业大学 · 电气工程</p>
-<p><strong>主修课程：</strong>智能机器人、交流伺服控制技术、电力电子工程应用、电器故障诊断与检测。<br>
-研究方向：视触觉传感器，一种使用相机捕捉柔性体表面形变获取接触信息的小型设备。<br>（计算机视觉、深度学习、3D建模、Modbus）</p>
-</div>
-</article>
-</section>
-<section aria-labelledby="section-2">
-<h2 id="section-2">项目</h2>
-<article class="project">
-<h3>科研项目｜沈阳名华模塑科技有限公司——油漆面缺陷自动检测系统</h3>
-
-<ul>
-<li>面向油漆件表面缺陷检测任务，搭建由 ABB 工业机器人、程控光模块和工业相机组成的自动化采集平台。</li>
-<li>负责机器人运动轨迹、相机触发和程控光投射流程设计，实现多硬件协同采集。</li>
-<li>实现相移图像采集与解码流程，输出用于缺陷检测和表面形貌分析的图像/三维数据。</li>
-<li><strong>技术栈：</strong>ABB RAPID、Python、TCP Socket、OpenCV、大恒工业相机 SDK</li>
-</ul>
-</article>
-<article class="project">
-<h3>开源项目｜HoloCubic 透明小电视（稚晖君开源项目二次开发）</h3>
-
-<ul>
-<li>基于开源 HoloCubic 项目进行二次开发，绘制 ESP32-S3-PICO 原理图并完成 PCB 打样、焊接和调试，接入 ST7789 显示屏、Micro SD、WS2812 RGB、MPU6050 和 PDM 麦克风等外设。</li>
-<li>完成 PCB 打样、焊接与硬件调试，验证显示、供电和主控通信功能。完成固件移植、基本硬件驱动测试，实现分光棱镜下的伪全息桌面显示效果。</li>
-<li>参考 Anki Vector 开源动画资源设计基于 Micro SD 的动画资源加载与播放机制，实现 Vector 风格眼部表情渲染和状态切换逻辑。</li>
-<li>实现 HTTP API 控制接口，支持表情播放、眼睛颜色设置等一系列功能控制。</li>
-<li><strong>技术栈：</strong>PlatformIO、C/C++、FreeRTOS、I2C、UART、SPI</li>
-</ul>
-</article>
-<article class="project">
-<h3>ESP32 / micro-ROS 两轮差速机器人平台设计（本科毕业设计）</h3>
-
-<ul>
-<li>设计 ESP32-WROOM-32E 主控软件架构，将 micro-ROS 通信任务与底盘控制循环解耦，降低 ROS2 连接维护对电机闭环周期的影响。</li>
-<li>搭建左右轮速度闭环控制与里程计发布流程，实现双电机 PID、PCNT 测速、MCPWM 驱动。完成激光雷达 UART-to-TCP 转发与 scan 发布测试。</li>
-<li>完成底层驱动、传感器接口和上位机通信调试，接入 Cartographer和Navigation2 ，验证差速底盘建图导航流程。</li>
-<li><strong>技术栈：</strong>PlatformIO、C/C++、FreeRTOS、micro-ROS、ESP32、UART</li>
-</ul>
-</article>
-<article class="project">
-<h3>人脸识别登录注册系统（本科课程设计）</h3>
-
-<ul>
-<li>开发了一套基于人脸识别的桌面端用户认证系统，支持人脸注册与刷脸登录功能。</li>
-<li>基于 HOG和SVM 实现实时人脸检测，采集数据集。在YOLO框架下进行训练，选择模型接入系统。</li>
-<li>设计并实现完整的注册登录业务流程，包括管理员密码验证、用户人脸特征入库、登录日志记录等。</li>
-<li><strong>技术栈：</strong>PyQt、YOLOv1、OpenCV、Python、SQLite</li>
-</ul>
-</article>
-</section>
-<section aria-labelledby="section-3">
-<h2 id="section-3">技能</h2>
-<dl class="skills">
-<div class="skill"><dt>编程语言</dt><dd>熟悉 C、Python，具备嵌入式 C/C++ 开发与常用脚本编写能力。</dd></div>
-<div class="skill"><dt>开发工具</dt><dd>了解 Git、GCC/GDB、Makefile/CMake 及 Linux 常用开发环境，了解交叉编译与嵌入式调试流程。</dd></div>
-<div class="skill"><dt>嵌入式</dt><dd>拥有esp32以及K510、树莓派等开发板的使用经验，能够进行基本的嵌入式系统开发和调试。</dd></div>
-<div class="skill"><dt>硬件调试</dt><dd>能阅读原理图，具备 PCB 打样、焊接和基础调试经验，能够结合串口日志和现场现象定位软硬件链路问题。</dd></div>
-</dl>
-</section>
+  <main class="pdf-page" aria-label="曾涵涵的简历" style="aspect-ratio:595.28/841.89">
+    <img class="page-art" src="/CV/resume.svg" width="59528" height="84189" alt="" aria-hidden="true">
+    <div class="text-layer">
+      <h1 class="text-line" style="left:5.000336%;top:7.048136%;width:18.493314%;height:3.661966%;--text-size:5.179029cqw"><span>曾涵涵</span></h1>
+<p class="text-line" style="left:5.000336%;top:12.448150%;width:15.822044%;height:1.861134%;--text-size:2.632156cqw"><span>Zeng Hanhan</span></p>
+<p class="text-line" style="left:71.573888%;top:5.710669%;width:10.298155%;height:1.090911%;--text-size:1.542849cqw"><span>陕西省安康市</span></p>
+<p class="text-line" style="left:74.019621%;top:7.279765%;width:7.624904%;height:0.839563%;--text-size:1.187373cqw"><span>2002/02/03</span></p>
+<a class="text-line" style="left:72.563332%;top:8.763196%;width:9.080932%;height:0.813561%;--text-size:1.150600cqw" href="tel:17349164114"><span>17349164114</span></a>
+<a class="text-line" style="left:64.534505%;top:10.161258%;width:17.110865%;height:1.077043%;--text-size:1.523236cqw" href="mailto:hanhanceng@icloud.com"><span>hanhanceng@icloud.com</span></a>
+<a class="text-line" style="left:67.372833%;top:11.603845%;width:14.272426%;height:1.077043%;--text-size:1.523236cqw" href="http://hhan.top"><span>Blog: http://hhan.top</span></a>
+<a class="text-line" style="left:55.563600%;top:13.046314%;width:26.081330%;height:1.077043%;--text-size:1.523236cqw" href="https://github.com/hhanworth"><span>GitHub: https://github.com/hhanworth</span></a>
+<h2 class="text-line" style="left:17.050128%;top:14.402194%;width:9.639971%;height:1.570918%;--text-size:2.221711cqw"><span>教育经历</span></h2>
+<p class="text-line" style="left:6.687273%;top:17.231686%;width:8.856955%;height:0.893385%;--text-size:1.263493cqw"><span>20.09-24.06</span></p>
+<p class="text-line" style="left:17.050128%;top:17.039342%;width:29.321618%;height:1.283764%;--text-size:1.815596cqw"><span>学士, 西安科技大学, 智能科学与技术</span></p>
+<p class="text-line" style="left:17.050128%;top:18.741359%;width:75.311904%;height:1.100156%;--text-size:1.555923cqw"><span>主修课程：微控制器原理与应用、通信原理、数字信号处理、数字图像处理、机器视觉、信号与系统。</span></p>
+<p class="text-line" style="left:18.512297%;top:20.700388%;width:61.392078%;height:1.204679%;--text-size:1.703748cqw"><span>全国大学生嵌入式芯片与系统设计竞赛西部赛区三等奖若干校级比赛三等奖</span></p>
+<p class="text-line" style="left:7.145377%;top:22.757026%;width:8.398772%;height:1.194553%;--text-size:1.689427cqw"><span>24.09-至今</span></p>
+<p class="text-line" style="left:17.050128%;top:22.757026%;width:31.154146%;height:1.278703%;--text-size:1.808438cqw"><span>硕士（在读）, 沈阳工业大学, 电气工程</span></p>
+<p class="text-line" style="left:17.049959%;top:24.453982%;width:65.270492%;height:1.100156%;--text-size:1.555923cqw"><span>主修课程：智能机器人、交流伺服控制技术、电力电子工程应用、电器故障诊断与检测。</span></p>
+<p class="text-line" style="left:17.049959%;top:25.874001%;width:65.270322%;height:1.100156%;--text-size:1.555923cqw"><span>研究方向：视触觉传感器，一种使用相机捕捉柔性体表面形变获取接触信息的小型设备。</span></p>
+<p class="text-line" style="left:16.102001%;top:27.294138%;width:34.728126%;height:1.100156%;--text-size:1.555923cqw"><span>（计算机视觉、深度学习、3D 建模、Modbus）</span></p>
+<h2 class="text-line" style="left:17.050128%;top:29.961480%;width:4.819984%;height:1.550951%;--text-size:2.193472cqw"><span>项目</span></h2>
+<p class="text-line" style="left:7.857479%;top:32.526732%;width:60.131480%;height:1.320196%;--text-size:1.867121cqw"><span>科研项目｜沈阳名华模塑科技有限公司——油漆面缺陷自动检测系统</span></p>
+<p class="text-line" style="left:10.056612%;top:34.310005%;width:85.318590%;height:1.204680%;--text-size:1.703749cqw"><span>面向油漆件表面缺陷检测任务，搭建由ABB 工业机器人、程控光模块和工业相机组成的自动化采集平台。</span></p>
+<p class="text-line" style="left:10.056612%;top:36.113685%;width:64.140984%;height:1.204680%;--text-size:1.703749cqw"><span>负责机器人运动轨迹、相机触发和程控光投射流程设计，实现多硬件协同采集。</span></p>
+<p class="text-line" style="left:10.056612%;top:37.917483%;width:68.315153%;height:1.204680%;--text-size:1.703749cqw"><span>实现相移图像采集与解码流程，输出用于缺陷检测和表面形貌分析的图像/三维数据。</span></p>
+<p class="text-line" style="left:10.056612%;top:39.721163%;width:60.020192%;height:1.347670%;--text-size:1.905977cqw"><span>技术栈：ABB RAPID、Python、TCP Socket、OpenCV、大恒工业相机SDK</span></p>
+<p class="text-line" style="left:7.857479%;top:42.433691%;width:56.009546%;height:1.309102%;--text-size:1.851431cqw"><span>开源项目｜HoloCubic 透明小电视（稚晖君开源项目二次开发）</span></p>
+<p class="text-line" style="left:10.056612%;top:44.211298%;width:84.944221%;height:1.199616%;--text-size:1.696588cqw"><span>基于开源HoloCubic 项目进行二次开发，绘制ESP32-S3-PICO 原理图并完成PCB 打样、焊接和调试，接入</span></p>
+<p class="text-line" style="left:10.056615%;top:45.820657%;width:62.821802%;height:1.204678%;--text-size:1.703746cqw"><span>ST7789 显示屏、Micro SD、WS2812 RGB、MPU6050 和PDM 麦克风等外设。</span></p>
+<p class="text-line" style="left:10.056612%;top:47.624457%;width:86.266698%;height:1.204678%;--text-size:1.703746cqw"><span>完成PCB 打样、焊接与硬件调试，验证显示、供电和主控通信功能。完成固件移植、基本硬件驱动测试，</span></p>
+<p class="text-line" style="left:10.056612%;top:49.233813%;width:32.986801%;height:1.199613%;--text-size:1.696583cqw"><span>实现分光棱镜下的伪全息桌面显示效果。</span></p>
+<p class="text-line" style="left:10.056612%;top:51.037487%;width:84.941003%;height:1.204679%;--text-size:1.703748cqw"><span>参考Anki Vector 开源动画资源设计基于Micro SD 的动画资源加载与播放机制，实现Vector 风格眼部表情</span></p>
+<p class="text-line" style="left:10.056610%;top:52.652021%;width:18.326000%;height:1.194554%;--text-size:1.689429cqw"><span>渲染和状态切换逻辑。</span></p>
+<p class="text-line" style="left:10.056612%;top:54.445584%;width:62.054102%;height:1.209738%;--text-size:1.710902cqw"><span>实现HTTP API 控制接口，支持表情播放、眼睛颜色设置等一系列功能控制。</span></p>
+<p class="text-line" style="left:10.056612%;top:56.254444%;width:47.934191%;height:1.199613%;--text-size:1.696583cqw"><span>技术栈：PlatformIO、C/C++、FreeRTOS、I2C、UART、SPI</span></p>
+<p class="text-line" style="left:7.857479%;top:58.966765%;width:54.951585%;height:1.320196%;--text-size:1.867121cqw"><span>ESP32 / micro-ROS 两轮差速机器人平台设计（本科毕业设计）</span></p>
+<p class="text-line" style="left:10.056612%;top:60.750042%;width:84.942431%;height:1.199619%;--text-size:1.696592cqw"><span>设计ESP32-WROOM-32E 主控软件架构，将micro-ROS 通信任务与底盘控制循环解耦，降低ROS2 连接维</span></p>
+<p class="text-line" style="left:10.056610%;top:62.359403%;width:21.991199%;height:1.204673%;--text-size:1.703739cqw"><span>护对电机闭环周期的影响。</span></p>
+<p class="text-line" style="left:10.056612%;top:64.163199%;width:84.941036%;height:1.204674%;--text-size:1.703741cqw"><span>搭建左右轮速度闭环控制与里程计发布流程，实现双电机PID、PCNT 测速、MCPWM 驱动。完成激光雷</span></p>
+<p class="text-line" style="left:10.056615%;top:65.772556%;width:32.299511%;height:1.204674%;--text-size:1.703741cqw"><span>达UART-to-TCP 转发与scan 发布测试。</span></p>
+<p class="text-line" style="left:10.056612%;top:67.576236%;width:84.941137%;height:1.347662%;--text-size:1.905965cqw"><span>完成底层驱动、传感器接口和上位机通信调试，接入Cartographer 和Navigation2 ，验证差速底盘建图导航</span></p>
+<p class="text-line" style="left:10.056610%;top:69.190768%;width:5.497799%;height:1.189493%;--text-size:1.682271cqw"><span>流程。</span></p>
+<p class="text-line" style="left:10.056612%;top:70.989381%;width:55.977199%;height:1.199620%;--text-size:1.696593cqw"><span>技术栈：PlatformIO、C/C++、FreeRTOS、micro-ROS、ESP32、UART</span></p>
+<p class="text-line" style="left:7.857479%;top:73.701790%;width:36.149979%;height:1.314649%;--text-size:1.859276cqw"><span>人脸识别登录注册系统（本科课程设计）</span></p>
+<p class="text-line" style="left:10.056612%;top:75.479516%;width:65.973582%;height:1.199620%;--text-size:1.696593cqw"><span>开发了一套基于人脸识别的桌面端用户认证系统，支持人脸注册与刷脸登录功能。</span></p>
+<p class="text-line" style="left:10.056612%;top:77.283196%;width:81.754553%;height:1.204680%;--text-size:1.703749cqw"><span>基于HOG 和SVM 实现实时人脸检测，采集数据集。在YOLO 框架下进行训练，选择模型接入系统。</span></p>
+<p class="text-line" style="left:10.056612%;top:79.087005%;width:80.634374%;height:1.199612%;--text-size:1.696581cqw"><span>设计并实现完整的注册登录业务流程，包括管理员密码验证、用户人脸特征入库、登录日志记录等。</span></p>
+<p class="text-line" style="left:10.056612%;top:80.890684%;width:42.354254%;height:1.347669%;--text-size:1.905975cqw"><span>技术栈：PyQt、YOLOv1、OpenCV、Python、SQLite</span></p>
+<h2 class="text-line" style="left:17.050128%;top:84.472517%;width:4.819984%;height:1.557606%;--text-size:2.202884cqw"><span>技能</span></h2>
+<p class="text-line" style="left:8.213782%;top:87.114599%;width:7.330399%;height:1.194559%;--text-size:1.689435cqw"><span>编程语言</span></p>
+<p class="text-line" style="left:17.050128%;top:87.109539%;width:51.295715%;height:1.347670%;--text-size:1.905977cqw"><span>熟悉C、Python，具备嵌入式C/C++ 开发与常用脚本编写能力。</span></p>
+<p class="text-line" style="left:8.213782%;top:89.047997%;width:7.330399%;height:1.189493%;--text-size:1.682271cqw"><span>开发工具</span></p>
+<p class="text-line" style="left:17.050128%;top:89.047997%;width:78.696912%;height:1.194553%;--text-size:1.689427cqw"><span>了解Git、GCC/GDB、Makefile/CMake 及Linux 常用开发环境，了解交叉编译与嵌入式调试流程。</span></p>
+<p class="text-line" style="left:10.046365%;top:90.981266%;width:5.497799%;height:1.189493%;--text-size:1.682271cqw"><span>嵌入式</span></p>
+<p class="text-line" style="left:17.050128%;top:90.976206%;width:75.695807%;height:1.345131%;--text-size:1.902385cqw"><span>拥有esp32 以及K510、树莓派等开发板的使用经验，能够进行基本的嵌入式系统开发和调试。</span></p>
+<p class="text-line" style="left:8.213782%;top:93.032960%;width:7.330399%;height:1.194552%;--text-size:1.689425cqw"><span>硬件调试</span></p>
+<p class="text-line" style="left:17.050128%;top:93.027900%;width:77.947230%;height:1.199612%;--text-size:1.696581cqw"><span>能阅读原理图，具备PCB 打样、焊接和基础调试经验，能够结合串口日志和现场现象定位软硬件</span></p>
+<p class="text-line" style="left:17.050128%;top:94.647377%;width:9.162999%;height:1.189490%;--text-size:1.682267cqw"><span>链路问题。</span></p>
+    </div>
   </main>
-  <script>
-    const printButton = document.getElementById('print-resume');
-    printButton.hidden = false;
-    printButton.addEventListener('click', () => window.print());
-  </script>
+  <script src="/CV/resume.js" defer></script>
 </body>
 </html>
