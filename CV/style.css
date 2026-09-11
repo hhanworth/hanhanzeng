@@ -56,6 +56,8 @@ h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 h3 { margin: 0; font-size: 1rem; line-height: 1.7; font-weight: 650; }
 .entry { display: grid; grid-template-columns: 146px minmax(0, 1fr); gap: 24px; }
 .entry + .entry { margin-top: 24px; }
+.project + .project { margin-top: 24px; }
+.project { overflow-wrap: anywhere; }
 .entry-date { margin: 2px 0 0; font-size: .875rem; font-variant-numeric: tabular-nums; color: var(--muted); }
 .entry-meta { margin: 2px 0 10px; color: var(--muted); font-size: .875rem; }
 .entry-content > p:not(.entry-meta) { margin: 0; }
@@ -109,6 +111,8 @@ dd { margin: 0; overflow-wrap: anywhere; }
   h3 { break-after: avoid; }
   .entry { grid-template-columns: 104px minmax(0, 1fr); gap: 14px; break-inside: avoid; }
   .entry + .entry { margin-top: 14px; }
+  .project { break-inside: avoid; }
+  .project + .project { margin-top: 14px; }
   .entry-meta { margin-bottom: 5px; }
   .skill { grid-template-columns: 104px minmax(0, 1fr); gap: 14px; break-inside: avoid; }
   .skill + .skill { margin-top: 5px; }
