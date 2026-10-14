@@ -8,6 +8,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid #3872b2; outline-offs
 .page-actions { max-width: 1000px; margin: 16px auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 14px; }
 .page-actions div { display: flex; align-items: center; gap: 24px; }
 .page-actions a, .page-actions button { padding: 8px 0; }
+.page-actions .video-hint { color: #777; font-size: 13px; }
+.page-actions .video-hint, .page-actions a[href="#video-gallery"] { white-space: nowrap; }
+.video-gallery { max-width: 1000px; margin: 40px auto 0; }
+.video-gallery-title { margin: 0 0 8px; font-size: 20px; font-weight: 600; color: #222; }
+.video-gallery-note { margin: 0 0 20px; font-size: 13px; color: #777; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px; }
+.video-item { margin: 0; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgb(0 0 0 / 10%); }
+.video-item video { display: block; width: 100%; height: auto; background: #000; aspect-ratio: 16 / 9; }
+.video-item figcaption { padding: 10px 14px; font-size: 13px; color: #555; }
 .page-actions button { border: 0; background: none; color: #3872b2; font: inherit; cursor: pointer; }
 .page-actions button:hover { text-decoration: underline; }
 .pdf-page { position: relative; container-type: inline-size; width: 100%; max-width: 1000px; margin: 0 auto; background: #fff; }
@@ -22,12 +31,16 @@ a.text-line:hover { background: rgb(70 125 205 / 9%); }
   body { padding: 0 0 16px; }
   .page-actions { margin: 8px 16px; }
   .page-actions div { gap: 16px; }
+  .page-actions .video-hint { display: none; }
+  .video-gallery { margin: 28px 16px 0; }
+  .video-grid { gap: 16px; }
 }
 @page { size: A4; margin: 0; }
 @media print {
   html, body { margin: 0; padding: 0; background: #fff; }
   .page-actions { display: none; }
   .pdf-page { width: 210mm; max-width: none; height: 297mm; margin: 0; break-inside: avoid; }
+  .video-gallery { display: none; }
   .page-art { width: 210mm; height: 297mm; }
   .text-layer { display: none; }
 }
